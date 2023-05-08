@@ -1,0 +1,139 @@
+﻿body {
+    background-image: url('/Images/pexels-mo-eid-8347501 (2).jpg');
+    background-repeat: no-repeat;
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+    background-attachment: fixed;
+}
+
+.IntroText {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.line {
+    width: 10em;
+    margin: 0 auto;
+    border-right: 2px solid white;
+    font-size: 3em;
+    white-space: nowrap;
+    overflow: hidden;
+    transform: translateY(-50%);
+    color: white;
+}
+
+.text {
+    animation: typewriter 5s steps(19) infinite, blinkText 900ms steps(19) infinite;
+}
+
+@keyframes typewriter {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 10em;
+    }
+}
+
+@keyframes blinkText {
+    from {
+        border-right-color: rgba(255,255,255,.75);
+    }
+
+    to {
+        border-right-color: transparent;
+    }
+}
+
+.__div {
+    backdrop-filter: blur(20%);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#view {
+    display: none;
+}
+
+#dropDErr {
+    display: none;
+}
+
+#dropDErr1 {
+    display: none;
+}
+
+#dropDErr2 {
+    display: none;
+}
+
+#EditErr {
+    display: none;
+}
+
+#EditErr1 {
+    display: none;
+}
+
+#EditErr2 {
+    display: none;
+}
+._tableview {
+    backdrop-filter: blur(20%) !important;
+    background-color: rgba(197, 173, 173, 60%) !important;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    left: 40%;
+    margin-left: -100px;
+    height: 180px;
+    top: 30%;
+    margin-top: -50px;
+    z-index: 1;
+}
+
+#ADDuser:after {
+    position: fixed;
+    content: "";
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: -2;
+}
+
+#userEditr:before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: #FFF;
+    z-index: -1;
+}
+#userEdit:after {
+    position: fixed;
+    content: "";
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: -2;
+}
+
+#ADDuser:before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: #FFF;
+    z-index: -1;
+}
+

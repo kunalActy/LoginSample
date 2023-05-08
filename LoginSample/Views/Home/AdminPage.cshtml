@@ -1,0 +1,166 @@
+﻿@using LoginSample.Models;
+@model List<LoginInfo>
+
+@{
+    ViewBag.Title = "AdminPage";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Skill Sheet manager</title>
+    <script>
+        function highlight_row() {
+            var table = document.getElementById('display-table');
+            var cells = table.getElementsByTagName('td');
+
+            for (var i = 0; i < cells.length; i++) {
+                // Take each cell
+                var cell = cells[i];
+                // do something on onclick event for cell
+                cell.onclick = function () {
+                    // Get the row id where the cell exists
+                    var rowId = this.parentNode.rowIndex;
+
+                    var rowsNotSelected = table.getElementsByTagName('tr');
+                    for (var row = 0; row < rowsNotSelected.length; row++) {
+                        rowsNotSelected[row].style.backgroundColor = "";
+                        rowsNotSelected[row].classList.remove('selected');
+                    }
+                    var rowSelected = table.getElementsByTagName('tr')[rowId];
+                    rowSelected.style.backgroundColor = "lightblue";
+                    rowSelected.className += " selected";
+                }
+            }
+        } //end of function
+
+        window.onload = highlight_row;
+    </script>
+    <script>
+
+    </script>
+    <script>
+
+
+
+    </script>
+    <script src="~/Scripts/Site/addUser.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="~/Content/bootstrap.css">
+    <link rel="stylesheet" href="~/StyleSheet/TextAnimation.css">
+    <link rel="stylesheet" href="~/Content/font-awesome.css">
+    <link rel="stylesheet" href="~/Content/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+
+    <link rel="stylesheet" href="~/Content/DataTables/css/select.dataTables.min.css" />
+    <script src="~/Scripts/Site/UpdateUsers.js"></script>
+</head>
+<body>
+
+    <div>
+        <div class="row mt-4">
+            <h5 class="text-light col-8 gap-3">Hello @TempData["name"]</h5>
+            <div class="d-flex justify-content-end grid gap-3 col-4">
+                <a class="btn btn-outline-warning"><i class="fa fa-edit"></i>Change password</a>
+                @Html.ActionLink("Log out", "logout", "Home", new { @class = "fa fa-sign-out" })>
+            </div>
+        </div>
+        <div class="col-4 card _tableview container  " style="margin-top:10vh">
+            <div class="card-body justify-content-center ">
+                <h5 class="card-title">Manage User</h5>
+                <div class=" d-flex justify-content-end grid gap-3 p-3">
+                    <button type="button" class="btn btn-primary" onclick="display()">ADD</button>
+                    <button type="button" class="btn btn-secondary" id="EditUser" onclick="EditThisUser()" disabled>EDIT</button>
+                    <button type="button" class="btn btn-danger" id="DelUser" disabled>DELETE</button>
+                </div>
+                <table class="table table-responsive-sm table-hover p-3 table-dark text-light opacity-75 " id="display-table">
+                    <thead class="bg-dark">
+                        <tr>
+                            <th><input name="select_all" id="all" value="1" type="checkbox" class="select-checkbox"></th>
+                            <th>UserName</th>
+                            <th>Email Id</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            <tr>
+                                <td></td>
+                                <td>@Model[i].SelectedUser</td>
+                                <td>@Model[i].UserEmail</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup col-4" id="ADDuser">
+        <form id="needs-validation" novalidate>
+            <div class="card">
+                <div class="card-body bg-white">
+
+                    <div class="d-flex justify-content-start mt-3">
+                        <label for="exampleInputPassword1" class="form-label text-dark col-4 fw-bold fs-5">UserName:</label>
+                        @Html.TextBox("NewUser", "", new { @class = "form-control form-control ", @id = "NewUser" })
+                    </div>
+                    <label class="text-danger col-6 text-right" id="dropDErr" style="margin-left:20vw">*Enter valid username</label>
+                    <div class="d-flex justify-content-start mt-3">
+                        <label for="exampleInputPassword1" class="form-label text-dark col-4 fw-bold fs-5">Password:</label>
+                        @Html.Password("NewUserPassword", "", new { @class = "form-control", @id = "NewUserPassword" })
+                    </div>
+                    <label class="text-danger col-6 text-right" id="dropDErr1" style="margin-left:20vw">*required</label>
+                    <div class="d-flex justify-content-start mt-3">
+                        <label for="exampleInputPassword1" class="form-label text-dark col-4 fw-bold fs-5">User Email:</label>
+                        @Html.TextBox("NewUserEmail", "", new { @class = "form-control", @id = "NewUserEmail" })
+                    </div>
+                    <label class="text-danger col-6 text-right" id="dropDErr2" style="margin-left:20vw">*required</label>
+                    <div class="d-flex justify-content-around mt-3">
+                        <a href="#" class="btn btn-primary btn-lg" id="btnUpdate" onclick="AddNewUser()">Add</a>
+                        <a href="#" class="btn btn-outline-warning btn-lg" type="reset" onclick="hide()">Cancel</a>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="popup col-4" id="userEdit">
+        <form id="needs-validation" novalidate>
+            <div class="card">
+                <div class="card-body bg-white">
+                    <div class="d-flex justify-content-start mt-3">
+                        <label for="exampleInputPassword1" class="form-label text-dark col-4 fw-bold fs-5">UserName:</label>
+                        @Html.TextBox("EditUserName", "", new { @class = "form-control form-control ", @id = "EditUserName" })
+                    </div>
+                    <label class="text-danger col-6 text-right" id="EditErr" style="margin-left:20vw">*Enter valid username</label>
+                    <div class="d-flex justify-content-start mt-3">
+                        <label for="exampleInputPassword1" class="form-label text-dark col-4 fw-bold fs-5">Password:</label>
+                        @Html.Password("EditUserPassword", "", new { @class = "form-control", @id = "EditUserPassword" })
+                    </div>
+                    <label class="text-danger col-6 text-right" id="EditErr1" style="margin-left:20vw">*required</label>
+                    <div class="d-flex justify-content-start mt-3">
+                        <label for="exampleInputPassword1" class="form-label text-dark col-4 fw-bold fs-5">User Email:</label>
+                        @Html.TextBox("EditUserEmail", "", new { @class = "form-control", @id = "EditUserEmail" })
+                    </div>
+                    <label class="text-danger col-6 text-right" id="EditErr2" style="margin-left:20vw">*required</label>
+                    <div class="d-flex justify-content-around mt-3">
+                        <a href="#" class="btn btn-primary btn-lg" id="btnUpdate" onclick="UpdateSelectedUser()">Edit</a>
+                        <a href="#" class="btn btn-outline-warning btn-lg" type="reset" onclick="hideEdituser()">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
+
+
