@@ -150,7 +150,7 @@ namespace LoginSample.Controllers
 
         public int UpdateSelectedUser(string SelectedUname,string newUname,string newPassword,string newEmail)
         {
-            DataSet ds = dbAccesser.GetMeUser(SelectedUname);
+            DataSet ds = dbAccesser.GetMeUser(newUname);
             newPassword = Security.PasswordSecurity.EncodePasswordToBase64(newPassword);
             Security.PasswordSecurity decodePass = new Security.PasswordSecurity();
             List<LoginInfo> userData = new List<LoginInfo>();
@@ -163,7 +163,7 @@ namespace LoginSample.Controllers
                 dbAccesser.UpdateUserDetails(SelectedUname, newUname, newPassword, newEmail);
                 return 1;
             }
-            if(!userData.Count.Equals(0))
+            if(userData.Count.Equals(0))
             {
                 dbAccesser.UpdateUserDetails(SelectedUname, newUname, newPassword, newEmail);
                 return 1;
