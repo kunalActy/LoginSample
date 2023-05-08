@@ -148,6 +148,14 @@ namespace LoginSample.Controllers
             return Json(userData, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// Update selected user
+        /// </summary>
+        /// <param name="SelectedUname">Checkbox selection with user name</param>
+        /// <param name="newUname">New username</param>
+        /// <param name="newPassword">New password</param>
+        /// <param name="newEmail">New email</param>
+        /// <returns></returns>
         public int UpdateSelectedUser(string SelectedUname,string newUname,string newPassword,string newEmail)
         {
             DataSet ds = dbAccesser.GetMeUser(newUname);
