@@ -7,11 +7,20 @@ using System.Data.SqlClient;
 
 namespace LoginSample.Db_Access
 {
+    /// <summary>
+    /// Acccess Database and table
+    /// </summary>
     public class SsmLogInfo
     {
+        /// <summary>
+        /// Access data usinfg webConfig
+        /// </summary>
         String ConnectionString = ConfigurationManager.ConnectionStrings["DBconnection"].ConnectionString;
 
-        // Get all accessible candidate
+        /// <summary>
+        /// Get all users
+        /// </summary>
+        /// <returns>Dataset of login</returns>
         public DataSet GetLogInfo()
         {
             SqlConnection sqlConnector = new SqlConnection(ConnectionString);
@@ -23,6 +32,11 @@ namespace LoginSample.Db_Access
             return ds;
         }
 
+        /// <summary>
+        /// Get user according to usertype
+        /// </summary>
+        /// <param name="UserType">Admin or user</param>
+        /// <returns>Dataset of users</returns>
         public DataSet GetUsers(string UserType)
         {
             SqlConnection sqlConnector = new SqlConnection(ConnectionString);
@@ -35,6 +49,13 @@ namespace LoginSample.Db_Access
             return ds;
         }
         // aW5kaWE=
+
+        /// <summary>
+        /// Get login info
+        /// </summary>
+        /// <param name="userName">username</param>
+        /// <param name="userPassword">user password</param>
+        /// <returns>User dataset</returns>
         public DataSet GetLogPass(string userName, string userPassword)
         {
             Security.PasswordSecurity secPass = new Security.PasswordSecurity();
@@ -50,6 +71,10 @@ namespace LoginSample.Db_Access
             return ds;
         }
 
+        /// <summary>
+        /// Get data of all user for datatable
+        /// </summary>
+        /// <returns>User dataset</returns>
         public DataSet GetAllUsers()
         {
             SqlConnection sqlConnector = new SqlConnection(ConnectionString);
@@ -62,6 +87,17 @@ namespace LoginSample.Db_Access
             return ds;
         }
 
+        /// <summary>
+        /// Get new user
+        /// </summary>
+        /// <param name="userid">Username</param>
+        /// <param name="password">User password</param>
+        /// <param name="userEmail">User email</param>
+        /// <param name="adminName">Admin editor</param>
+        /// <returns>
+        /// 1. If new user addes
+        /// 0. Error in inputs
+        /// </returns>
         public int newUser(string userid, string password, string userEmail, string adminName)
         {
             password = Security.PasswordSecurity.EncodePasswordToBase64(password);
@@ -95,7 +131,11 @@ namespace LoginSample.Db_Access
             }
         }
 
-        public DataSet DeleteSelUser(string username)
+        /// <summary>
+        /// Delete selected users
+        /// </summary>
+        /// <param name="username">Username</param>
+        public void DeleteSelUser(string username)
         {
             SqlConnection sqlConnector = new SqlConnection(ConnectionString);
             sqlConnector.Open();
@@ -104,9 +144,13 @@ namespace LoginSample.Db_Access
             SqlDataAdapter DataSeq = new SqlDataAdapter(sqlCmd);
             DataSet ds = new DataSet();
             DataSeq.Fill(ds);
-            return ds;
         }
 
+        /// <summary>
+        /// Get seletected user details
+        /// </summary>
+        /// <param name="username">Username</param>
+        /// <returns>User data details</returns>
         public DataSet GetMeUser(string username)
         {
             SqlConnection sqlConnector = new SqlConnection(ConnectionString);
@@ -119,6 +163,13 @@ namespace LoginSample.Db_Access
             return ds;
         }
 
+        /// <summary>
+        /// Update selected users
+        /// </summary>
+        /// <param name="selectedUser">Selected user</param>
+        /// <param name="newUname">New user</param>
+        /// <param name="newUpassword">New user password</param>
+        /// <param name="newUemail">New user email</param>
         public void UpdateUserDetails(string selectedUser,string newUname,string newUpassword,string newUemail)
         {
             SqlConnection sqlConnector = new SqlConnection(ConnectionString);

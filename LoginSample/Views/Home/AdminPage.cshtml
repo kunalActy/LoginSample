@@ -98,7 +98,7 @@
         <form id="needs-validation" novalidate>
             <div class="card">
                 <div class="card-body bg-white">
-
+                    <h5 class="card-title">Add new user</h5>
                     <div class="d-flex justify-content-start mt-3">
                         <label for="exampleInputPassword1" class="form-label text-dark col-4 fw-bold fs-5">UserName:</label>
                         @Html.TextBox("NewUser", "", new { @class = "form-control form-control ", @id = "NewUser" })
@@ -127,6 +127,7 @@
         <form id="needs-validation" novalidate>
             <div class="card">
                 <div class="card-body bg-white">
+                    <h5 class="card-title">Edit existing user</h5>
                     <div class="d-flex justify-content-start mt-3">
                         <label for="exampleInputPassword1" class="form-label text-dark col-4 fw-bold fs-5">UserName:</label>
                         @Html.TextBox("EditUserName", "", new { @class = "form-control form-control ", @id = "EditUserName" })

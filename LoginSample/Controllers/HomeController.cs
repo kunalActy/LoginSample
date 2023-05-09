@@ -8,17 +8,36 @@ using System.Web.Mvc;
 
 namespace LoginSample.Controllers
 {
-
+    /// <summary>
+    /// Home controller
+    /// </summary>
     public class HomeController : Controller
     {
+        /// <summary>
+        /// Access database and query
+        /// </summary>
         Db_Access.SsmLogInfo dbAccesser = new Db_Access.SsmLogInfo();
+
+        /// <summary>
+        /// Commiting link with database sql server
+        /// </summary>
         String ConnectionString = ConfigurationManager.ConnectionStrings["DBconnection"].ConnectionString;
+
+        /// <summary>
+        /// Index page action result
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             try
             {
+                // Session Login-Logout
                 Session["IsFromMyAction"] = false;
+
+                // Model
                 var modelObj = new LoginInfo();
+
+                //User types
                 modelObj.UserType = new List<SelectListItem>();
                 modelObj.UserType.Add(new SelectListItem { Text = "--select--", Value = "0", Disabled = true, Selected = true });
                 modelObj.UserType.Add(new SelectListItem { Text = "Admin", Value = "Admin" });
@@ -34,6 +53,12 @@ namespace LoginSample.Controllers
             }
         }
 
+        /// <summary>
+        /// Admin page
+        /// </summary>
+        /// <returns>
+        /// All users
+        /// </returns>
         public ActionResult AdminPage()
         {
             try
@@ -62,12 +87,25 @@ namespace LoginSample.Controllers
             }
         }
 
+        /// <summary>
+        /// Session logout
+        /// </summary>
+        /// <returns>Login page</returns>
         public ActionResult logout()
         {
             Session["IsFromMyAction"] = false;
             return RedirectToAction("Index", "Home");
         }
 
+        /// <summary>
+        /// Validate user
+        /// </summary>
+        /// <param name="userId">Entered username</param>
+        /// <param name="pass">Entered password</param>
+        /// <returns>
+        /// 1. If valid
+        /// 2. if invalid
+        /// </returns>
         public string ValidateUser(string userId, string pass)
         {
             try
@@ -95,6 +133,11 @@ namespace LoginSample.Controllers
             }
         }
 
+        /// <summary>
+        /// Get all user according to type
+        /// </summary>
+        /// <param name="userType">Admin or user</param>
+        /// <returns>Username</returns>
         public JsonResult UserNameBind(string userType)
         {
             try
@@ -116,7 +159,12 @@ namespace LoginSample.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Get user data
+        /// </summary>
+        /// <param name="userName">Username</param>
+        /// <param name="userPassword">Password</param>
+        /// <returns>user data</returns>
         private List<LoginInfo> GetDataFromDB(string userName, string userPassword)
         {
             try
@@ -135,6 +183,10 @@ namespace LoginSample.Controllers
             }
         }
 
+        /// <summary>
+        /// Get all user for datatable
+        /// </summary>
+        /// <returns>users details</returns>
         private List<LoginInfo> GetUsers()
         {
             try
@@ -152,6 +204,17 @@ namespace LoginSample.Controllers
                 throw;
             }
         }
+
+        /// <summary>
+        /// Add new users
+        /// </summary>
+        /// <param name="userid">User id</param>
+        /// <param name="pass">Password</param>
+        /// <param name="userEmail">User email</param>
+        /// <returns>
+        /// 1. Entered succesfully
+        /// 0. Error in inputs
+        /// </returns>
         public int AddNewUser(string userid, string pass, string userEmail)
         {
             try
@@ -173,6 +236,10 @@ namespace LoginSample.Controllers
             }
         }
 
+        /// <summary>
+        /// Delete existing data
+        /// </summary>
+        /// <param name="userid">User id</param>
         public void DeleteUser(string[] userid)
         {
             try
@@ -188,6 +255,11 @@ namespace LoginSample.Controllers
             }
         }
 
+        /// <summary>
+        /// Get user data to edit
+        /// </summary>
+        /// <param name="username">Username</param>
+        /// <returns>User data</returns>
         public JsonResult GetThisUser(string username)
         {
             try

@@ -15,6 +15,10 @@
         usern.style.display = "block";
         return;
     }
+    if (userid.length > 20) {
+        usern.style.display = "block";
+        return;
+    }
     if (userid.length > 3) {
         usern.style.display = "none";
     }

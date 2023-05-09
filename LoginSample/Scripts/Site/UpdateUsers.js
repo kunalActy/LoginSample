@@ -1,4 +1,6 @@
-﻿var defUserName;
+﻿
+// Button display
+var defUserName;
 function HideButtons() {
     if ($('.isCheck:checked').length == 1) {
         document.getElementById("DelUser").disabled = false;
@@ -43,7 +45,7 @@ $(document).ready(function () {
     var tblData = document.getElementById("display-table");
     var chks = tblData.getElementsByClassName("isCheck");
 
-
+    // Multiple check or all selection
     $('#all').change(function (e) {
         $('#display-table tbody :checkbox').prop('checked', $(this).is(':checked'));
         HideButtons();
@@ -175,6 +177,10 @@ function UpdateSelectedUser() {
     var regex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,64})");
     userid = userid.trim();
     if (userid.length < 3 || userid == "") {
+        usern.style.display = "block";
+        return;
+    }
+    if (userid.length > 20) {
         usern.style.display = "block";
         return;
     }
