@@ -29,12 +29,16 @@ namespace LoginSample.Controllers
 
         public ActionResult AdminPage()
         {
-            
+            HttpCookie userc = Request.Cookies["user"];
+            if (userc.Value.Equals(""))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             if ((bool)Session["IsFromMyAction"] == true)
             {
                 List<LoginInfo> userData = new List<LoginInfo>();
                 userData = GetUsers();
-                HttpCookie userc = Request.Cookies["user"];
+                userc = Request.Cookies["user"];
                 TempData["name"] = userc.Value;             
                 return View(userData);
             }
@@ -98,7 +102,6 @@ namespace LoginSample.Controllers
 
         private List<LoginInfo> GetUsers()
         {
-            HttpCookie userc = Request.Cookies["user"];
             DataSet ds = dbAccesser.GetAllUsers();
             List<LoginInfo> userData = new List<LoginInfo>();
             foreach (DataRow dr in ds.Tables[0].Rows)
@@ -155,7 +158,10 @@ namespace LoginSample.Controllers
         /// <param name="newUname">New username</param>
         /// <param name="newPassword">New password</param>
         /// <param name="newEmail">New email</param>
-        /// <returns></returns>
+        /// <returns>
+        /// 1: if data updated
+        /// 2: If user name already exits
+        /// </returns>
         public int UpdateSelectedUser(string SelectedUname,string newUname,string newPassword,string newEmail)
         {
             DataSet ds = dbAccesser.GetMeUser(newUname);

@@ -15,6 +15,12 @@ function HideButtons() {
 }
 var selectedRows = [];
 
+// Logout
+function LogOut() {
+    return window.location.href = "/Home/logout";
+}
+
+// Check box 
 $(document).ready(function () {
 
     $('#display-table').DataTable({
@@ -68,10 +74,11 @@ $(document).ready(function () {
         }
     });
 
+    // Delete selected users
     $('#DelUser').click(function () {
         var url = "/Home/DeleteUser/";
         console.log(selectedRows);
-        let text = "Press a button!\nEither OK or Cancel.";
+        let text = "Are you sure you want to delete selected user(s) ?";
         if (confirm(text) == true) {
             $.ajax({
                 url: url,
@@ -110,6 +117,8 @@ $(document).ready(function () {
         });
     }
 });
+
+// CURD buttons
 function display() {
     var viewPopup = document.getElementById("ADDuser");
     viewPopup.style.display = 'block';

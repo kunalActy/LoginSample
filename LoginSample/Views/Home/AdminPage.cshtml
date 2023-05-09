@@ -39,14 +39,6 @@
 
         window.onload = highlight_row;
     </script>
-    <script>
-
-    </script>
-    <script>
-
-
-
-    </script>
     <script src="~/Scripts/Site/addUser.js"></script>
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
@@ -66,10 +58,10 @@
 
     <div>
         <div class="row mt-4">
-            <h5 class="text-light col-8 gap-3">Hello @TempData["name"]</h5>
-            <div class="d-flex justify-content-end grid gap-3 col-4">
+            <h5 class="text-light col-9 gap-3">Hello @TempData["name"]</h5>
+            <div class="d-flex justify-content-end grid gap-2 col-2">
                 <a class="btn btn-outline-warning"><i class="fa fa-edit"></i>Change password</a>
-                @Html.ActionLink("Log out", "logout", "Home", new { @class = "fa fa-sign-out" })>
+                <a class="btn btn-outline-primary" onclick="LogOut()"><i class="fa fa-sign-out"></i>Log-Out</a>              
             </div>
         </div>
         <div class="col-4 card _tableview container  " style="margin-top:10vh">
