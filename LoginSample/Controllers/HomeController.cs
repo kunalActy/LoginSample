@@ -15,34 +15,48 @@ namespace LoginSample.Controllers
         String ConnectionString = ConfigurationManager.ConnectionStrings["DBconnection"].ConnectionString;
         public ActionResult Index()
         {
-            Session["IsFromMyAction"] = false;
-            var modelObj = new LoginInfo();
-            modelObj.UserType = new List<SelectListItem>();
-            modelObj.UserType.Add(new SelectListItem { Text = "--select--", Value = "0", Disabled = true, Selected = true });
-            modelObj.UserType.Add(new SelectListItem { Text = "Admin", Value = "Admin" });
-            modelObj.UserType.Add(new SelectListItem { Text = "User", Value = "User" });
-            ViewBag.UserType = new SelectList(modelObj.UserType);
-            modelObj.UserName = new List<SelectListItem>();
-            ViewBag.UserName = new SelectList(modelObj.UserName);
-            return View(modelObj);
+            try
+            {
+                Session["IsFromMyAction"] = false;
+                var modelObj = new LoginInfo();
+                modelObj.UserType = new List<SelectListItem>();
+                modelObj.UserType.Add(new SelectListItem { Text = "--select--", Value = "0", Disabled = true, Selected = true });
+                modelObj.UserType.Add(new SelectListItem { Text = "Admin", Value = "Admin" });
+                modelObj.UserType.Add(new SelectListItem { Text = "User", Value = "User" });
+                ViewBag.UserType = new SelectList(modelObj.UserType);
+                modelObj.UserName = new List<SelectListItem>();
+                ViewBag.UserName = new SelectList(modelObj.UserName);
+                return View(modelObj);
+            }
+            catch(Exception ex)
+            {
+                return View(ex);
+            }
         }
 
         public ActionResult AdminPage()
         {
-            HttpCookie userc = Request.Cookies["user"];
-            if (userc.Value.Equals(""))
+            try
             {
-                return RedirectToAction("Index", "Home");
+                HttpCookie userc = Request.Cookies["user"];
+                if (userc.Value.Equals(""))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                if ((bool)Session["IsFromMyAction"] == true)
+                {
+                    List<LoginInfo> userData = new List<LoginInfo>();
+                    userData = GetUsers();
+                    userc = Request.Cookies["user"];
+                    TempData["name"] = userc.Value;
+                    return View(userData);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
-            if ((bool)Session["IsFromMyAction"] == true)
-            {
-                List<LoginInfo> userData = new List<LoginInfo>();
-                userData = GetUsers();
-                userc = Request.Cookies["user"];
-                TempData["name"] = userc.Value;             
-                return View(userData);
-            }
-            else
+            catch
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -56,59 +70,87 @@ namespace LoginSample.Controllers
 
         public string ValidateUser(string userId, string pass)
         {
-            pass = Security.PasswordSecurity.EncodePasswordToBase64(pass);
-            /*Replace this query of code with you DB code.*/
-            var logResult = GetDataFromDB(userId, pass);
+            try
+            {
+                pass = Security.PasswordSecurity.EncodePasswordToBase64(pass);
+                /*Replace this query of code with you DB code.*/
+                var logResult = GetDataFromDB(userId, pass);
 
-            if (logResult.Count != 0)
-            {
-                Session["IsFromMyAction"] = true;
-                HttpCookie UserCookie = new HttpCookie("user", userId);
-                UserCookie.Expires.AddHours(1);
-                HttpContext.Response.SetCookie(UserCookie);
-                return "1";
+                if (logResult.Count != 0)
+                {
+                    Session["IsFromMyAction"] = true;
+                    HttpCookie UserCookie = new HttpCookie("user", userId);
+                    UserCookie.Expires.AddHours(1);
+                    HttpContext.Response.SetCookie(UserCookie);
+                    return "1";
+                }
+                else
+                {
+                    return "0";
+                }
             }
-            else
+            catch(Exception ex)
             {
-                return "0";
+                return ex.ToString();
             }
         }
 
         public JsonResult UserNameBind(string userType)
         {
-            DataSet ds = dbAccesser.GetUsers(userType);
-            var modelObj = new LoginInfo();
-            modelObj.UserName = new List<SelectListItem>();
-            List<SelectListItem> userList = new List<SelectListItem>();
-
-            foreach (DataRow dr in ds.Tables[0].Rows)
+            try
             {
-                modelObj.UserName.Add(new SelectListItem { Text = dr["UserName"].ToString(), Value = dr["UserName"].ToString() });
+                DataSet ds = dbAccesser.GetUsers(userType);
+                var modelObj = new LoginInfo();
+                modelObj.UserName = new List<SelectListItem>();
+                List<SelectListItem> userList = new List<SelectListItem>();
+
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    modelObj.UserName.Add(new SelectListItem { Text = dr["UserName"].ToString(), Value = dr["UserName"].ToString() });
+                }
+                return Json(modelObj.UserName, JsonRequestBehavior.AllowGet);
             }
-            return Json(modelObj.UserName, JsonRequestBehavior.AllowGet);
+            catch(Exception ex)
+            {
+                return Json (ex.Message);
+            }
         }
 
 
         private List<LoginInfo> GetDataFromDB(string userName, string userPassword)
         {
-            DataSet ds = dbAccesser.GetLogPass(userName, userPassword);
-            List<LoginInfo> userData = new List<LoginInfo>();
-            foreach (DataRow dr in ds.Tables[0].Rows)
+            try
             {
-                userData.Add(new LoginInfo { SelectedUser = dr["UserName"].ToString(), UserPassword = dr["Password"].ToString() });
+                DataSet ds = dbAccesser.GetLogPass(userName, userPassword);
+                List<LoginInfo> userData = new List<LoginInfo>();
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    userData.Add(new LoginInfo { SelectedUser = dr["UserName"].ToString(), UserPassword = dr["Password"].ToString() });
+                }
+                return userData;
             }
-            return userData;
+            catch
+            {
+                throw;
+            }
         }
 
         private List<LoginInfo> GetUsers()
         {
-            DataSet ds = dbAccesser.GetAllUsers();
-            List<LoginInfo> userData = new List<LoginInfo>();
-            foreach (DataRow dr in ds.Tables[0].Rows)
+            try
             {
-                userData.Add(new LoginInfo { SelectedUser = dr["UserName"].ToString(), UserEmail = dr["UserEmail"].ToString(),UserPassword=dr["Password"].ToString()});
+                DataSet ds = dbAccesser.GetAllUsers();
+                List<LoginInfo> userData = new List<LoginInfo>();
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    userData.Add(new LoginInfo { SelectedUser = dr["UserName"].ToString(), UserEmail = dr["UserEmail"].ToString(), UserPassword = dr["Password"].ToString() });
+                }
+                return userData;
             }
-            return userData;
+            catch
+            {
+                throw;
+            }
         }
         public int AddNewUser(string userid, string pass, string userEmail)
         {
@@ -133,22 +175,36 @@ namespace LoginSample.Controllers
 
         public void DeleteUser(string[] userid)
         {
-            foreach (var user in userid)
+            try
             {
-                dbAccesser.DeleteSelUser(user);
+                foreach (var user in userid)
+                {
+                    dbAccesser.DeleteSelUser(user);
+                }
+            }
+            catch
+            {
+                throw;
             }
         }
 
         public JsonResult GetThisUser(string username)
         {
-            DataSet ds = dbAccesser.GetMeUser(username);
-            Security.PasswordSecurity decodePass = new Security.PasswordSecurity();
-            List<LoginInfo> userData = new List<LoginInfo>();
-            foreach (DataRow dr in ds.Tables[0].Rows)
+            try
             {
-                userData.Add(new LoginInfo { SelectedUser = dr["UserName"].ToString(), UserEmail =  dr["UserEmail"].ToString(), UserPassword = decodePass.DecodeFrom64( dr["Password"].ToString()) });
+                DataSet ds = dbAccesser.GetMeUser(username);
+                Security.PasswordSecurity decodePass = new Security.PasswordSecurity();
+                List<LoginInfo> userData = new List<LoginInfo>();
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    userData.Add(new LoginInfo { SelectedUser = dr["UserName"].ToString(), UserEmail = dr["UserEmail"].ToString(), UserPassword = decodePass.DecodeFrom64(dr["Password"].ToString()) });
+                }
+                return Json(userData, JsonRequestBehavior.AllowGet);
             }
-            return Json(userData, JsonRequestBehavior.AllowGet);
+            catch(Exception ex)
+            {
+                return Json(ex.Message);
+            }
         }
 
         /// <summary>
@@ -164,27 +220,34 @@ namespace LoginSample.Controllers
         /// </returns>
         public int UpdateSelectedUser(string SelectedUname,string newUname,string newPassword,string newEmail)
         {
-            DataSet ds = dbAccesser.GetMeUser(newUname);
-            newPassword = Security.PasswordSecurity.EncodePasswordToBase64(newPassword);
-            Security.PasswordSecurity decodePass = new Security.PasswordSecurity();
-            List<LoginInfo> userData = new List<LoginInfo>();
-            foreach (DataRow dr in ds.Tables[0].Rows)
+            try
             {
-                userData.Add(new LoginInfo { SelectedUser = dr["UserName"].ToString() });
+                DataSet ds = dbAccesser.GetMeUser(newUname);
+                newPassword = Security.PasswordSecurity.EncodePasswordToBase64(newPassword);
+                Security.PasswordSecurity decodePass = new Security.PasswordSecurity();
+                List<LoginInfo> userData = new List<LoginInfo>();
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    userData.Add(new LoginInfo { SelectedUser = dr["UserName"].ToString() });
+                }
+                if (SelectedUname == newUname)
+                {
+                    dbAccesser.UpdateUserDetails(SelectedUname, newUname, newPassword, newEmail);
+                    return 1;
+                }
+                if (userData.Count.Equals(0))
+                {
+                    dbAccesser.UpdateUserDetails(SelectedUname, newUname, newPassword, newEmail);
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
             }
-            if (SelectedUname==newUname)
+            catch
             {
-                dbAccesser.UpdateUserDetails(SelectedUname, newUname, newPassword, newEmail);
-                return 1;
-            }
-            if(userData.Count.Equals(0))
-            {
-                dbAccesser.UpdateUserDetails(SelectedUname, newUname, newPassword, newEmail);
-                return 1;
-            }
-            else
-            {
-                return 0;
+                throw;
             }
         }
     }
