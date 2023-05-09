@@ -38,7 +38,6 @@
                 <div class="card __div">
                     <div class="card-body">
                         <h3 class="card-title text-white fs-3 fw-bold">Log-in</h3>
-
                         <div class="d-flex justify-content-start mt-3">
                             <label for="groupName" class="form-label text-white col-6 fw-bold fs-5 ">Group name: </label>
                             @Html.DropDownListFor(model => model.SelectedGroup, Model.UserType, new { @class = "col-6 dropdown", @id = "SelectedGroup" })
@@ -47,7 +46,6 @@
                         <div class="d-flex justify-content-start mt-3">
                             <label for="groupName" class="form-label text-white col-6 fw-bold fs-5 was-validated">User Name: </label>
                             @Html.DropDownListFor(model => model.SelectedUser, Model.UserName, "---select---", new { @class = "col-6 dropdown", @id = "SelectedUser" })
-
                         </div>
                         <div class="d-flex justify-content-start mt-3">
                             <label for="exampleInputPassword1" class="form-label text-white col-6 fw-bold fs-5">Password:</label>
