@@ -136,4 +136,9 @@
     background: #FFF;
     z-index: -1;
 }
-
+@media screen and (min-width: 300px) {
+    .IntroText{
+        padding-left:20vh !important;
+        margin-left:5vw;
+    }
+}

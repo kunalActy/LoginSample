@@ -56,14 +56,14 @@
 <body>
 
     <div>
-        <div class="row mt-4">
-            <h5 class="text-light col-9 gap-3">Hello @TempData["name"]</h5>
-            <div class="d-flex justify-content-end grid gap-2 col-2">
+        <div class="row mt-4 col-xl-12 ">
+            <h5 class="text-light col-9 col-sm-6 gap-3">Hello @TempData["name"]</h5>
+            <div class="d-flex justify-content-end grid gap-2 col-sm-6 col-2">
                 <a class="btn btn-outline-warning"><i class="fa fa-edit"></i>Change password</a>
                 <a class="btn btn-outline-primary" onclick="LogOut()"><i class="fa fa-sign-out"></i>Log-Out</a>              
             </div>
         </div>
-        <div class="col-4 card _tableview container  " style="margin-top:10vh">
+        <div class="col-xl-4 col-sm-12 col-12 card _tableview container  " style="margin-top:10vh">
             <div class="card-body justify-content-center ">
                 <h5 class="card-title">Manage User</h5>
                 <div class=" d-flex justify-content-end grid gap-3 p-3">
@@ -94,7 +94,7 @@
         </div>
     </div>
 
-    <div class="popup col-4" id="ADDuser">
+    <div class="popup col-xl-4 col-lg-4 col-sm-8 col-md-5" id="ADDuser">
         <form id="needs-validation" novalidate>
             <div class="card">
                 <div class="card-body bg-white">
@@ -123,7 +123,7 @@
             </div>
         </form>
     </div>
-    <div class="popup col-4" id="userEdit">
+    <div class="popup col-xl-4 col-lg-4 col-sm-8 col-md-5" id="userEdit">
         <form id="needs-validation" novalidate>
             <div class="card">
                 <div class="card-body bg-white">
