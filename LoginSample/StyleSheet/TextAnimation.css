@@ -12,10 +12,10 @@
 }
 
 .line {
-    width: 10em;
+    width: 5em;
     margin: 0 auto;
     border-right: 2px solid white;
-    font-size: 3em;
+    font-size: 3vw;
     white-space: nowrap;
     overflow: hidden;
     transform: translateY(-50%);
@@ -136,14 +136,14 @@
     background: #FFF;
     z-index: -1;
 }
-@media screen and (max-width: 1700px) {
-    .IntroText {
-        padding-left: 20vh !important;
-        margin-left: 5vw;
-    }
 
-    .line {
-        width: 5em;
-        font-size: 2em;
+@media screen and (max-width: 770px) {
+    .IntroText{
+        margin-left:36vw;
+    }
+}
+@media screen and (max-width: 1800px) {
+    .IntroText {
+        margin-left: 15vw;
     }
 }
