@@ -79,7 +79,7 @@ namespace LoginSample.Db_Access
         {
             SqlConnection sqlConnector = new SqlConnection(ConnectionString);
             sqlConnector.Open();
-            SqlCommand sqlCmd = new SqlCommand("Select UserName,UserEmail,password from LogInfo where UserType=@utype", sqlConnector);
+            SqlCommand sqlCmd = new SqlCommand("Select UserName,UserEmail,userid from LogInfo where UserType=@utype", sqlConnector);
             sqlCmd.Parameters.AddWithValue("utype", "user");
             SqlDataAdapter DataSeq = new SqlDataAdapter(sqlCmd);
             DataSet ds = new DataSet();
@@ -151,7 +151,19 @@ namespace LoginSample.Db_Access
         /// </summary>
         /// <param name="username">Username</param>
         /// <returns>User data details</returns>
-        public DataSet GetMeUser(string username)
+        public DataSet GetMeUser(string uid)
+        {
+            SqlConnection sqlConnector = new SqlConnection(ConnectionString);
+            sqlConnector.Open();
+            SqlCommand sqlCmd = new SqlCommand("Select UserName, UserEmail, password from LogInfo where userid=@uid ", sqlConnector);
+            sqlCmd.Parameters.AddWithValue("uid", uid);
+            SqlDataAdapter DataSeq = new SqlDataAdapter(sqlCmd);
+            DataSet ds = new DataSet();
+            DataSeq.Fill(ds);
+            return ds;
+        }
+
+        public DataSet GetUsernameForvalidation(string username)
         {
             SqlConnection sqlConnector = new SqlConnection(ConnectionString);
             sqlConnector.Open();
@@ -170,12 +182,12 @@ namespace LoginSample.Db_Access
         /// <param name="newUname">New user</param>
         /// <param name="newUpassword">New user password</param>
         /// <param name="newUemail">New user email</param>
-        public void UpdateUserDetails(string selectedUser,string newUname,string newUpassword,string newUemail)
+        public void UpdateUserDetails(string uid,string newUname,string newUpassword,string newUemail)
         {
             SqlConnection sqlConnector = new SqlConnection(ConnectionString);
             sqlConnector.Open();
-            SqlCommand sqlCmd = new SqlCommand("update LogInfo set UserName=@nUname,password=@nUpass,UserEmail=@nUemail where UserName=@uname", sqlConnector);
-            sqlCmd.Parameters.AddWithValue("uname", selectedUser);
+            SqlCommand sqlCmd = new SqlCommand("update LogInfo set UserName=@nUname,password=@nUpass,UserEmail=@nUemail where userid=@uname", sqlConnector);
+            sqlCmd.Parameters.AddWithValue("uname", uid);
             sqlCmd.Parameters.AddWithValue("nUname", newUname);
             sqlCmd.Parameters.AddWithValue("nUpass", newUpassword);
             sqlCmd.Parameters.AddWithValue("nUemail", newUemail);

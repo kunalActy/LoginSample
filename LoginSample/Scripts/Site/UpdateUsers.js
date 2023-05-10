@@ -16,7 +16,7 @@ function HideButtons() {
     }
 }
 var selectedRows = [];
-
+var selectedIndex = [];
 // Logout
 function LogOut() {
     return window.location.href = "/Home/logout";
@@ -53,6 +53,9 @@ $(document).ready(function () {
             if (chks[i].checked) {
                 var data = table.row($(chks[i]).closest('tr')).data();
                 selectedRows.push(data[1]);
+                selectedIndex.push(data[3]);
+                console.log("hello");
+                console.log(data[3]);
             }
         }
     });
@@ -65,11 +68,10 @@ $(document).ready(function () {
     $('.isCheck').on('change', function () {
         if ($(this).is(':checked')) {
             var data = table.row($(this).closest('tr')).data();
-            selectedRows.push(data[1]);
+             selectedRows.push(data[1]);
+            selectedIndex.push(data[3]);
             var editdata = [];
             editdata.push(data[1], data[2]);
-
-
         } else {
             var index = selectedRows.indexOf(data);
             selectedRows.splice(index, 1);
@@ -137,7 +139,7 @@ function EditThisUser() {
     var url = "/Home/GetThisUser/";
     $.ajax({
         url: url,
-        data: { username: selectedRows },
+        data: { uid: selectedIndex },
         cache: false,
         type: "POST",
         dataType: "JSON",
@@ -201,7 +203,7 @@ function UpdateSelectedUser() {
     else {
         $.ajax({
             url: url,
-            data: { SelectedUname: defUserName, newUname: userid, newPassword: password, newEmail: uemail },
+            data: { uid: selectedIndex, SelectedUname: defUserName, newUname: userid, newPassword: password, newEmail: uemail },
             cache: false,
             type: "POST",
             success: function (data) {

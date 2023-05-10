@@ -25,6 +25,7 @@ namespace LoginSample.Models
         /// </summary>
         public List<SelectListItem> UserName { get; set; }
 
+        public string UserSerial { get; set; }
         /// <summary>
         /// Selected username
         /// </summary>

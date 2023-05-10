@@ -195,7 +195,7 @@ namespace LoginSample.Controllers
                 List<LoginInfo> userData = new List<LoginInfo>();
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
-                    userData.Add(new LoginInfo { SelectedUser = dr["UserName"].ToString(), UserEmail = dr["UserEmail"].ToString(), UserPassword = dr["Password"].ToString() });
+                    userData.Add(new LoginInfo { SelectedUser = dr["UserName"].ToString(), UserEmail = dr["UserEmail"].ToString(),UserSerial = dr["userid"].ToString() });
                 }
                 return userData;
             }
@@ -260,11 +260,11 @@ namespace LoginSample.Controllers
         /// </summary>
         /// <param name="username">Username</param>
         /// <returns>User data</returns>
-        public JsonResult GetThisUser(string username)
+        public JsonResult GetThisUser(string uid)
         {
             try
             {
-                DataSet ds = dbAccesser.GetMeUser(username);
+                DataSet ds = dbAccesser.GetMeUser(uid);
                 Security.PasswordSecurity decodePass = new Security.PasswordSecurity();
                 List<LoginInfo> userData = new List<LoginInfo>();
                 foreach (DataRow dr in ds.Tables[0].Rows)
@@ -290,11 +290,11 @@ namespace LoginSample.Controllers
         /// 1: if data updated
         /// 2: If user name already exits
         /// </returns>
-        public int UpdateSelectedUser(string SelectedUname,string newUname,string newPassword,string newEmail)
+        public int UpdateSelectedUser(string uid, string SelectedUname , string newUname,string newPassword,string newEmail)
         {
             try
             {
-                DataSet ds = dbAccesser.GetMeUser(newUname);
+                DataSet ds = dbAccesser.GetUsernameForvalidation(newUname);
                 newPassword = Security.PasswordSecurity.EncodePasswordToBase64(newPassword);
                 Security.PasswordSecurity decodePass = new Security.PasswordSecurity();
                 List<LoginInfo> userData = new List<LoginInfo>();
@@ -304,12 +304,12 @@ namespace LoginSample.Controllers
                 }
                 if (SelectedUname == newUname)
                 {
-                    dbAccesser.UpdateUserDetails(SelectedUname, newUname, newPassword, newEmail);
+                    dbAccesser.UpdateUserDetails(uid, newUname, newPassword, newEmail);
                     return 1;
                 }
                 if (userData.Count.Equals(0))
                 {
-                    dbAccesser.UpdateUserDetails(SelectedUname, newUname, newPassword, newEmail);
+                    dbAccesser.UpdateUserDetails(uid, newUname, newPassword, newEmail);
                     return 1;
                 }
                 else
