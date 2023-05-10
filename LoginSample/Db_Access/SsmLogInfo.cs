@@ -13,7 +13,7 @@ namespace LoginSample.Db_Access
     public class SsmLogInfo
     {
         /// <summary>
-        /// Access data usinfg webConfig
+        /// Access data using webConfig
         /// </summary>
         String ConnectionString = ConfigurationManager.ConnectionStrings["DBconnection"].ConnectionString;
 
