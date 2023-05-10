@@ -133,8 +133,7 @@ function hide() {
 }
 function EditThisUser() {
     var viewPopup = document.getElementById("userEdit");
-    viewPopup.style.display = 'block';
-
+    
     // Edit user details
     var url = "/Home/GetThisUser/";
     $.ajax({
@@ -146,11 +145,20 @@ function EditThisUser() {
         success: function (data) {
             console.log('india');
             $.each(data, function (index, model) {
-                defUserName = model.SelectedUser;
-                console.log(model.SelectedUser);
-                document.getElementById("EditUserName").value = model.SelectedUser;
-                document.getElementById("EditUserEmail").value = model.UserEmail;
-                document.getElementById("EditUserPassword").value = model.UserPassword;
+                var selname = document.getElementById("EditUserName").value;
+                if (model == false) {
+                    viewPopup.style.display = "none";
+                    alert(data.error);
+                    return window.location.href = "/Home/AdminPage";
+                }
+                else {                   
+                    defUserName = model.SelectedUser;
+                    console.log(model.SelectedUser);
+                    document.getElementById("EditUserName").value = model.SelectedUser;
+                    document.getElementById("EditUserEmail").value = model.UserEmail;
+                    document.getElementById("EditUserPassword").value = model.UserPassword;
+                    viewPopup.style.display = 'block';
+                }
             });
         },
         error: function (reponse) {

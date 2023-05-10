@@ -243,7 +243,7 @@ namespace LoginSample.Controllers
         public void DeleteUser(string[] userid)
         {
             try
-            {
+            {               
                 foreach (var user in userid)
                 {
                     dbAccesser.DeleteSelUser(user);
@@ -271,11 +271,15 @@ namespace LoginSample.Controllers
                 {
                     userData.Add(new LoginInfo { SelectedUser = dr["UserName"].ToString(), UserEmail = dr["UserEmail"].ToString(), UserPassword = decodePass.DecodeFrom64(dr["Password"].ToString()) });
                 }
+                if (userData.Count.Equals(0))
+                {
+                    return Json(new { result = false, error = "Selected user was deleted by another admin" });
+                }
                 return Json(userData, JsonRequestBehavior.AllowGet);
             }
             catch(Exception ex)
             {
-                return Json(ex.Message);
+                return Json(new { result = false, error = ex.Message });
             }
         }
 
