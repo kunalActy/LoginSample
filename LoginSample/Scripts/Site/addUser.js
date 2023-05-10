@@ -1,4 +1,5 @@
-﻿function AddNewUser() {
+﻿// Add new user
+function AddNewUser() {
     var userid = $("#NewUser").val();
     var password = $("#NewUserPassword").val();
     var userEmail = $("#NewUserEmail").val();
