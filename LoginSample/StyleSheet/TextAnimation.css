@@ -78,23 +78,27 @@
 #EditErr2 {
     display: none;
 }
+
 ._tableview {
     backdrop-filter: blur(20%) !important;
     background-color: rgba(197, 173, 173, 60%) !important;
 }
 
 .popup {
+    border-radius: 2vh !important;
     display: none;
     position: fixed;
     left: 40%;
     margin-left: -100px;
     height: 180px;
     top: 30%;
-    margin-top: -50px;
+    margin-top: -32vh;
     z-index: 1;
 }
 
+
 #ADDuser:after {
+    border-radius:2vh !important;
     position: fixed;
     content: "";
     top: 0;
@@ -106,6 +110,7 @@
 }
 
 #userEditr:before {
+    border-radius: 2vh !important;
     position: absolute;
     content: "";
     top: 0;
@@ -115,7 +120,9 @@
     background: #FFF;
     z-index: -1;
 }
+
 #userEdit:after {
+    border-radius: 2vh !important;
     position: fixed;
     content: "";
     top: 0;
@@ -127,6 +134,7 @@
 }
 
 #ADDuser:before {
+    border-radius: 2vh !important;
     position: absolute;
     content: "";
     top: 0;
@@ -138,12 +146,22 @@
 }
 
 @media screen and (max-width: 770px) {
-    .IntroText{
-        margin-left:36vw;
+    .IntroText {
+        margin-left: 36vw;
     }
 }
+
 @media screen and (max-width: 1800px) {
     .IntroText {
         margin-left: 15vw;
     }
+}
+
+#ADDuser {
+    border-radius: 2vh !important;
+    display: none;
+}
+#userEdit {
+    border-radius: 2vh !important;
+    display: none;
 }
