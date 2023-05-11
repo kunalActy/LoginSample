@@ -126,6 +126,7 @@ $(document).ready(function () {
 function display() {
     var viewPopup = document.getElementById("ADDuser");
     viewPopup.style.display = 'block';
+    viewPopup.style.animation = "fadeIn 1s"
 }
 function hide() {
     var viewPopup = document.getElementById("ADDuser");
@@ -158,6 +159,7 @@ function EditThisUser() {
                     document.getElementById("EditUserEmail").value = model.UserEmail;
                     document.getElementById("EditUserPassword").value = model.UserPassword;
                     viewPopup.style.display = 'block';
+                    viewPopup.style.animation = "fadeIn 1s"
                 }
             });
         },
@@ -169,10 +171,12 @@ function EditThisUser() {
 function hideEdituser() {
     var viewPopup = document.getElementById("userEdit");
     viewPopup.style.display = "none";
+    
 }
 
 // To edit details of existing user
 function UpdateSelectedUser() {
+    var viewPopup = document.getElementById("userEdit");
     // Userid label
     var usern = document.getElementById("EditErr");
     // user password label
@@ -187,10 +191,12 @@ function UpdateSelectedUser() {
     var regex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,64})");
     userid = userid.trim();
     if (userid.length < 3 || userid == "") {
-        usern.style.display = "block";
+        viewPopup.style.animation = "shake 0.5s";
+        usern.style.display = "block";        
         return;
     }
     if (userid.length > 20) {
+        viewPopup.style.animation = "shake 0.5s";
         usern.style.display = "block";
         return;
     }
@@ -198,6 +204,7 @@ function UpdateSelectedUser() {
         usern.style.display = "none";
     }
     if (!password.match(regex)) {
+        viewPopup.style.animation = "shake 0.5s";
         upass.style.display = "block";
         return;
     }
@@ -205,6 +212,7 @@ function UpdateSelectedUser() {
         upass.style.display = "none";
     }
     if (!emailset.test(uemail)) {
+        viewPopup.style.animation = "shake 0.5s";
         uEmail.style.display = "block";
         return;
     }

@@ -1,5 +1,6 @@
 ﻿// Add new user
 function AddNewUser() {
+    var viewPopup = document.getElementById("ADDuser");
     var userid = $("#NewUser").val();
     var password = $("#NewUserPassword").val();
     var userEmail = $("#NewUserEmail").val();
@@ -13,17 +14,21 @@ function AddNewUser() {
     var regex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,64})");
     userid = userid.trim();
     if (userid.length < 3 || userid == "") {
+        viewPopup.style.animation = "shake 0.5s";
         usern.style.display = "block";
         return;
     }
     if (userid.length > 20) {
+        viewPopup.style.animation = "shake 0.5s";
         usern.style.display = "block";
         return;
     }
     if (userid.length > 3) {
+
         usern.style.display = "none";
     }
     if (!password.match(regex)) {
+        viewPopup.style.animation = "shake 0.5s";
         upass.style.display = "block";
         return;
     }
@@ -31,6 +36,7 @@ function AddNewUser() {
         upass.style.display = "none";
     }
     if (!emailset.test(userEmail)) {
+        viewPopup.style.animation = "shake 0.5s";
         uEmail.style.display = "block";
         return;
     }
