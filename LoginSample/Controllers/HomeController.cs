@@ -22,7 +22,7 @@ namespace LoginSample.Controllers
         /// Commiting link with database sql server
         /// </summary>
         String ConnectionString = ConfigurationManager.ConnectionStrings["DBconnection"].ConnectionString;
-        
+
         /// <summary>
         /// Index page action result
         /// </summary>
@@ -32,23 +32,31 @@ namespace LoginSample.Controllers
             try
             {
                 Session.Clear();
+                HttpCookie userc = Request.Cookies["user"];
+                if (userc == null)
+                {
+                    // Model
+                    var modelObj = new LoginInfo();
 
-                // Model
-                var modelObj = new LoginInfo();
-
-                //User types
-                modelObj.UserType = new List<SelectListItem>();
-                modelObj.UserType.Add(new SelectListItem { Text = "--select--", Value = "0", Disabled = true, Selected = true });
-                modelObj.UserType.Add(new SelectListItem { Text = "Admin", Value = "Admin" });
-                modelObj.UserType.Add(new SelectListItem { Text = "User", Value = "User" });
-                ViewBag.UserType = new SelectList(modelObj.UserType);
-                modelObj.UserName = new List<SelectListItem>();
-                ViewBag.UserName = new SelectList(modelObj.UserName);
-                Response.Cookies.Clear();
-                return View(modelObj);
+                    //User types
+                    modelObj.UserType = new List<SelectListItem>();
+                    modelObj.UserType.Add(new SelectListItem { Text = "--select--", Value = "0", Disabled = true, Selected = true });
+                    modelObj.UserType.Add(new SelectListItem { Text = "Admin", Value = "Admin" });
+                    modelObj.UserType.Add(new SelectListItem { Text = "User", Value = "User" });
+                    ViewBag.UserType = new SelectList(modelObj.UserType);
+                    modelObj.UserName = new List<SelectListItem>();
+                    ViewBag.UserName = new SelectList(modelObj.UserName);
+                    Response.Cookies.Clear();
+                    return View(modelObj);
+                }
+                else
+                {
+                    Session["IsFromMyAction"] = true;
+                    return RedirectToAction("AdminPage", "Home");
+                }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return View(ex);
             }
@@ -64,7 +72,7 @@ namespace LoginSample.Controllers
         {
             try
             {
-                HttpCookie userc = Request.Cookies["user"];                
+                HttpCookie userc = Request.Cookies["user"];
                 if (userc.Value.Equals(""))
                 {
                     return RedirectToAction("Index", "Home");
@@ -93,10 +101,13 @@ namespace LoginSample.Controllers
         /// </summary>
         /// <returns>Login page</returns>
         public ActionResult logout()
-        {           
+        {
             Session["IsFromMyAction"] = false;
             Session.RemoveAll();
-            Response.Cookies["MyCookie"].Expires = DateTime.Now.AddDays(-5);
+            if (Request.Cookies["user"] != null)
+            {
+                Response.Cookies["user"].Expires = DateTime.Now.AddDays(-1);
+            }
             return RedirectToAction("Index", "Home");
         }
 
@@ -130,7 +141,7 @@ namespace LoginSample.Controllers
                     return "0";
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return ex.ToString();
             }
@@ -156,9 +167,9 @@ namespace LoginSample.Controllers
                 }
                 return Json(modelObj.UserName, JsonRequestBehavior.AllowGet);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return Json (ex.Message);
+                return Json(ex.Message);
             }
         }
 
@@ -198,7 +209,7 @@ namespace LoginSample.Controllers
                 List<LoginInfo> userData = new List<LoginInfo>();
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
-                    userData.Add(new LoginInfo { SelectedUser = dr["UserName"].ToString(), UserEmail = dr["UserEmail"].ToString(),UserSerial = dr["userid"].ToString() });
+                    userData.Add(new LoginInfo { SelectedUser = dr["UserName"].ToString(), UserEmail = dr["UserEmail"].ToString(), UserSerial = dr["userid"].ToString() });
                 }
                 return userData;
             }
@@ -246,7 +257,7 @@ namespace LoginSample.Controllers
         public void DeleteUser(string[] userid)
         {
             try
-            {               
+            {
                 foreach (var user in userid)
                 {
                     dbAccesser.DeleteSelUser(user);
@@ -280,7 +291,7 @@ namespace LoginSample.Controllers
                 }
                 return Json(userData, JsonRequestBehavior.AllowGet);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Json(new { result = false, error = ex.Message });
             }
@@ -297,7 +308,7 @@ namespace LoginSample.Controllers
         /// 1: if data updated
         /// 2: If user name already exits
         /// </returns>
-        public int UpdateSelectedUser(string uid, string SelectedUname , string newUname,string newPassword,string newEmail)
+        public int UpdateSelectedUser(string uid, string SelectedUname, string newUname, string newPassword, string newEmail)
         {
             try
             {

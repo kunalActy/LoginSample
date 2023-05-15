@@ -13,6 +13,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Skill Sheet manager</title>
     <script>
+
         function highlight_row() {
             var table = document.getElementById('display-table');
             var cells = table.getElementsByTagName('td');
@@ -34,9 +35,15 @@
                     rowSelected.style.backgroundColor = "lightblue";
                     rowSelected.className += " selected";
                 }
-            }          
+            }
         } //end of function
         window.onload = highlight_row;
+    </script>
+    <script type="text/javascript">
+        window.history.forward();
+        function noBack() {
+            window.history.forward();
+        }
     </script>
     <script src="~/Scripts/Site/addUser.js"></script>
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>

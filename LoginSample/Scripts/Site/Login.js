@@ -1,5 +1,4 @@
-﻿function ValidateUser() {
-    
+﻿function ValidateUser() {    
     var view = document.getElementById("view");
     var userid = $("#SelectedUser").val();
     var password = $("#UserPassword").val();

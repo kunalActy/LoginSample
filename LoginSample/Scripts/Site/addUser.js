@@ -1,4 +1,5 @@
-﻿// Add new user
+﻿
+// Add new user
 function AddNewUser() {
     var viewPopup = document.getElementById("ADDuser");
     var userid = $("#NewUser").val();
