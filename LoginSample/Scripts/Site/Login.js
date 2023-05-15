@@ -1,4 +1,5 @@
 ﻿function ValidateUser() {
+    
     var view = document.getElementById("view");
     var userid = $("#SelectedUser").val();
     var password = $("#UserPassword").val();
@@ -36,6 +37,7 @@
                 view.textContent = " *Wrong password";
                 view.style.display = "block";
             }
+           
         },
         error: function (reponse) {
             alert("error : " + reponse);

@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+﻿$(document).ready(function () {  
     $("#SelectedGroup").change(function () {
         var data = { "userType": $("#SelectedGroup").val() }
         $("select[id$=SelectedUser] > option").remove();

@@ -17,10 +17,7 @@ function HideButtons() {
 }
 var selectedRows = [];
 var selectedIndex = [];
-// Logout
-function LogOut() {
-    return window.location.href = "/Home/logout";
-}
+
 
 // Check box 
 $(document).ready(function () {

@@ -22,7 +22,7 @@ namespace LoginSample.Controllers
         /// Commiting link with database sql server
         /// </summary>
         String ConnectionString = ConfigurationManager.ConnectionStrings["DBconnection"].ConnectionString;
-
+        
         /// <summary>
         /// Index page action result
         /// </summary>
@@ -31,8 +31,7 @@ namespace LoginSample.Controllers
         {
             try
             {
-                // Session Login-Logout
-                Session["IsFromMyAction"] = false;
+                Session.Clear();
 
                 // Model
                 var modelObj = new LoginInfo();
@@ -45,7 +44,9 @@ namespace LoginSample.Controllers
                 ViewBag.UserType = new SelectList(modelObj.UserType);
                 modelObj.UserName = new List<SelectListItem>();
                 ViewBag.UserName = new SelectList(modelObj.UserName);
+                Response.Cookies.Clear();
                 return View(modelObj);
+
             }
             catch(Exception ex)
             {
@@ -63,7 +64,7 @@ namespace LoginSample.Controllers
         {
             try
             {
-                HttpCookie userc = Request.Cookies["user"];
+                HttpCookie userc = Request.Cookies["user"];                
                 if (userc.Value.Equals(""))
                 {
                     return RedirectToAction("Index", "Home");
@@ -92,8 +93,10 @@ namespace LoginSample.Controllers
         /// </summary>
         /// <returns>Login page</returns>
         public ActionResult logout()
-        {
+        {           
             Session["IsFromMyAction"] = false;
+            Session.RemoveAll();
+            Response.Cookies["MyCookie"].Expires = DateTime.Now.AddDays(-5);
             return RedirectToAction("Index", "Home");
         }
 

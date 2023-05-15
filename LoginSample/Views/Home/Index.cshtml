@@ -13,6 +13,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv='cache-control' content='no-cache'>
+    <meta http-equiv='expires' content='-1'>
+    <meta http-equiv='pragma' content='no-cache'>
     <title>Skill Sheet manager</title>
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
@@ -23,6 +26,13 @@
     <link rel="stylesheet" href="~/Content/bootstrap.css">
     <link rel="stylesheet" href="~/StyleSheet/TextAnimation.css">
     <link rel="stylesheet" href="~/StyleSheet/Resposive.css">
+    @section script{
+        <script type="text/javascript">
+            function preventBack() { window.history.forward(); }
+            setTimeout("preventBack()",0);
+            window.onunload = function () { null };
+        </script>
+        }
 </head>
 <body>
 

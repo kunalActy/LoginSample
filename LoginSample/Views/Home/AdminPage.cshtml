@@ -34,9 +34,8 @@
                     rowSelected.style.backgroundColor = "lightblue";
                     rowSelected.className += " selected";
                 }
-            }
+            }          
         } //end of function
-
         window.onload = highlight_row;
     </script>
     <script src="~/Scripts/Site/addUser.js"></script>
@@ -60,7 +59,7 @@
             <h5 class="text-light col-9 col-sm-6 gap-3">Hello @TempData["name"]</h5>
             <div class="d-flex justify-content-end grid gap-2 col-sm-6 col-2">
                 <a class="btn btn-outline-warning"><i class="fa fa-edit"></i>Change password</a>
-                <a class="btn btn-outline-primary" onclick="LogOut()"><i class="fa fa-sign-out"></i>Log-Out</a>
+                @Html.ActionLink("Log out", "logout", "Home", new { @class = "fa fa-sign-out", @clearHistory = "true" })>
             </div>
         </div>
         <div class="col-xl-12 col-xxl-4 col-sm-12 col-12 col-lg-12 col-md-12 card _tableview container text-light rounded-3 " style="margin-top:10vh">
@@ -84,7 +83,6 @@
                         @for (int i = 0; i < Model.Count; i++)
                         {
                             <tr>
-
                                 <td class="text-dark"></td>
                                 <td class="text-dark">@Model[i].SelectedUser</td>
                                 <td class="text-dark">@Model[i].UserEmail</td>
@@ -98,7 +96,7 @@
     </div>
 
     <div class="popup card col-xl-4 col-lg-4 col-sm-8 col-md-5 " id="ADDuser">
-        
+
         <div class="card-body rounded-circle">
             <h5 class="modal-title ">Add new user</h5>
             <div class="d-flex justify-content-start mt-3">
