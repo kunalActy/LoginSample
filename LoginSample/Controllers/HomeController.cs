@@ -38,7 +38,7 @@ namespace LoginSample.Controllers
                     // Model
                     var modelObj = new LoginInfo();
 
-                    //User types
+                    // User types
                     modelObj.UserType = new List<SelectListItem>();
                     modelObj.UserType.Add(new SelectListItem { Text = "--select--", Value = "0", Disabled = true, Selected = true });
                     modelObj.UserType.Add(new SelectListItem { Text = "Admin", Value = "Admin" });
@@ -73,7 +73,7 @@ namespace LoginSample.Controllers
             try
             {
                 HttpCookie userc = Request.Cookies["user"];
-                if (userc.Value.Equals(""))
+                if (userc.Value.Equals("")&& Request.Cookies["user"] == null)
                 {
                     return RedirectToAction("Index", "Home");
                 }
@@ -103,10 +103,10 @@ namespace LoginSample.Controllers
         public ActionResult logout()
         {
             Session["IsFromMyAction"] = false;
-            Session.RemoveAll();
             if (Request.Cookies["user"] != null)
             {
                 Response.Cookies["user"].Expires = DateTime.Now.AddDays(-1);
+                Session.Abandon();
             }
             return RedirectToAction("Index", "Home");
         }
