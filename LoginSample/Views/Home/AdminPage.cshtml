@@ -44,6 +44,7 @@
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="~/Content/bootstrap.css">
     <link rel="stylesheet" href="~/StyleSheet/TextAnimation.css">
+    <link rel="stylesheet" href="~/StyleSheet/Datatable.css">
     <link rel="stylesheet" href="~/Content/font-awesome.css">
     <link rel="stylesheet" href="~/Content/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -71,12 +72,12 @@
                     <button type="button" class="btn btn-secondary" id="EditUser" onclick="EditThisUser()" disabled>EDIT</button>
                     <button type="button" class="btn btn-danger" id="DelUser" disabled>DELETE</button>
                 </div>
-                <table class=" table table-responsive-sm table-hover p-3 table-light text-light opacity-75 col-xl-12 col-12 col-md-12 col-xxl-12 col-lg-12 " id="display-table">
-                    <thead class="rounded-3">
-                        <tr>
-                            <th><input name="select_all" id="all" value="1" type="checkbox" class="select-checkbox"></th>
-                            <th class="text-dark">UserName</th>
-                            <th class="text-dark">Email Id</th>
+                <table class=" table table-responsive-sm table-hover p-3 table-light text-light opacity-75 col-xl-12 col-12 col-md-12 col-xxl-12 col-lg-12" id="display-table">
+                    <thead>
+                        <tr >
+                            <th class="rounded-start"><input name="select_all" id="all" value="1" type="checkbox" class="select-checkbox"></th>
+                            <th class="text-dark ">UserName</th>
+                            <th class="text-dark rounded-end">Email Id</th>
                             <th style="display:none"></th>
                         </tr>
                     </thead>
@@ -86,7 +87,7 @@
                             <tr>
                                 <td class="text-dark"></td>
                                 <td class="text-dark">@Model[i].SelectedUser</td>
-                                <td class="text-dark">@Model[i].UserEmail</td>
+                                <td class="text-dark ">@Model[i].UserEmail</td>
                                 <td style="display:none">@Model[i].UserSerial</td>
                             </tr>
                         }

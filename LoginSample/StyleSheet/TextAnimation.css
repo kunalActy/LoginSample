@@ -50,7 +50,7 @@
 
 .__div {
     backdrop-filter: blur(20%);
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 #view {
@@ -83,7 +83,7 @@
 
 ._tableview {
     backdrop-filter: blur(20%) !important;
-    background-color: rgba(255,255,255,.15)!important;
+    background-color: rgba(0, 0, 0, 0.5)!important;
 
 }
 tbody{
@@ -221,7 +221,4 @@ tbody{
     to {
         opacity: 1;
     }
-}
-#display-table_paginate{
-    color:black;
 }

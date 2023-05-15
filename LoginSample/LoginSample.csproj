@@ -438,6 +438,7 @@
     <Content Include="Scripts\Site\Login.js" />
     <Content Include="Scripts\Site\site.js" />
     <Content Include="Scripts\Site\UpdateUsers.js" />
+    <Content Include="StyleSheet\Datatable.css" />
     <Content Include="StyleSheet\Resposive.css" />
     <Content Include="StyleSheet\TextAnimation.css" />
     <Content Include="Web.config" />
