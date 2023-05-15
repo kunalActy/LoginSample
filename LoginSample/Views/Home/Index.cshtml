@@ -26,13 +26,7 @@
     <link rel="stylesheet" href="~/Content/bootstrap.css">
     <link rel="stylesheet" href="~/StyleSheet/TextAnimation.css">
     <link rel="stylesheet" href="~/StyleSheet/Resposive.css">
-    @section script{
-        <script type="text/javascript">
-            function preventBack() { window.history.forward(); }
-            setTimeout("preventBack()",0);
-            window.onunload = function () { null };
-        </script>
-        }
+    <script src="~/Scripts/Site/Backprevent.js"></script> 
 </head>
 <body>
 

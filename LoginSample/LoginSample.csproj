@@ -434,6 +434,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\Site\addUser.js" />
+    <Content Include="Scripts\Site\Backprevent.js" />
     <Content Include="Scripts\Site\Login.js" />
     <Content Include="Scripts\Site\site.js" />
     <Content Include="Scripts\Site\UpdateUsers.js" />
