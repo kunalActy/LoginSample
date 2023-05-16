@@ -16,21 +16,29 @@ function AddNewUser() {
     userid = userid.trim();
     if (userid.length < 3 || userid == "") {
         viewPopup.style.animation = "shake 0.5s";
+        usern.textContent = "*Required"
         usern.style.display = "block";
         return;
     }
     if (userid.length > 20) {
         viewPopup.style.animation = "shake 0.5s";
+        usern.textContent = "*Oops! Username conatains max 20 char!";
         usern.style.display = "block";
         return;
     }
     if (userid.length > 3) {
-
         usern.style.display = "none";
     }
-    if (!password.match(regex)) {
+    if (password == "") {
         viewPopup.style.animation = "shake 0.5s";
         upass.style.display = "block";
+        upass.textContent = "*Required";
+        return;
+    }
+    if (!password.match(regex)) {        
+        viewPopup.style.animation = "shake 0.5s";
+        upass.style.display = "block";
+        upass.textContent = "*Oops! Too weak password ! for refrence Ex: Acty@1947";
         return;
     }
     if (password.match(regex)) {
@@ -39,6 +47,7 @@ function AddNewUser() {
     if (!emailset.test(userEmail)) {
         viewPopup.style.animation = "shake 0.5s";
         uEmail.style.display = "block";
+        uEmail.textContent = "*Email should be like: Acty@gmail.com";
         return;
     }
     else {

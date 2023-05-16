@@ -188,11 +188,13 @@ function UpdateSelectedUser() {
     var regex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,64})");
     userid = userid.trim();
     if (userid.length < 3 || userid == "") {
+        usern.textContent = "*Required"
         viewPopup.style.animation = "shake 0.5s";
         usern.style.display = "block";        
         return;
     }
     if (userid.length > 20) {
+        usern.textContent = "*Oops! Username conatains max 20 char!";
         viewPopup.style.animation = "shake 0.5s";
         usern.style.display = "block";
         return;
@@ -200,9 +202,16 @@ function UpdateSelectedUser() {
     if (userid.length > 3) {
         usern.style.display = "none";
     }
+    if (password == "") {
+        viewPopup.style.animation = "shake 0.5s";
+        upass.style.display = "block";
+        upass.textContent = "*Required";
+        return;
+    }
     if (!password.match(regex)) {
         viewPopup.style.animation = "shake 0.5s";
         upass.style.display = "block";
+        upass.textContent = "*Oops! Too weak password ! for refrence Ex: Acty@1947";
         return;
     }
     if (password.match(regex)) {
@@ -211,6 +220,7 @@ function UpdateSelectedUser() {
     if (!emailset.test(uemail)) {
         viewPopup.style.animation = "shake 0.5s";
         uEmail.style.display = "block";
+        uEmail.textContent = "*Email should be like: Acty@gmail.com";
         return;
     }
     else {

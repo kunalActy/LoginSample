@@ -106,17 +106,17 @@
                 <label for="exampleInputPassword1" class="form-label text-dark col-4 fw-bold fs-5">UserName:</label>
                 @Html.TextBox("NewUser", "", new { @class = "form-control form-control ", @id = "NewUser" })
             </div>
-            <label class="text-danger col-6 text-right" id="dropDErr" style="margin-left:20vw">*Enter valid username</label>
+            <label class="text-danger col-8 text-right" id="dropDErr" style="margin-left:10vw">*Enter valid username</label>
             <div class="d-flex justify-content-start mt-3">
                 <label for="exampleInputPassword1" class="form-label text-dark col-4 fw-bold fs-5">Password:</label>
                 @Html.Password("NewUserPassword", "", new { @class = "form-control", @id = "NewUserPassword" })
             </div>
-            <label class="text-danger col-6 text-right" id="dropDErr1" style="margin-left:20vw">*required</label>
+            <label class="text-danger col-6 text-right" id="dropDErr1" style="margin-left:10vw">*required</label>
             <div class="d-flex justify-content-start mt-3">
                 <label for="exampleInputPassword1" class="form-label text-dark col-4 fw-bold fs-5">User Email:</label>
                 @Html.TextBox("NewUserEmail", "", new { @class = "form-control", @id = "NewUserEmail" })
             </div>
-            <label class="text-danger col-6 text-right" id="dropDErr2" style="margin-left:20vw">*required</label>
+            <label class="text-danger col-6 text-right" id="dropDErr2" style="margin-left:10vw">*required</label>
             <div class="d-flex justify-content-around mt-3">
                 <a href="#" class="btn btn-primary btn-lg" id="btnUpdate" onclick="AddNewUser()">Add</a>
                 <a href="#" class="btn btn-outline-warning btn-lg" type="reset" onclick="hide()">Cancel</a>
