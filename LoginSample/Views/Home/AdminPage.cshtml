@@ -65,7 +65,7 @@
                 @Html.ActionLink("Log out", "logout", "Home", new { @class = "fa fa-sign-out", @clearHistory = "true" })>
             </div>
         </div>
-        <div class="col-xl-12 col-xxl-4 col-sm-12 col-12 col-lg-12 col-md-12 card _tableview container text-light rounded-3 " style="margin-top:10vh">
+        <div class="col-xl-12 col-xxl-4 col-sm-12 col-12 col-lg-12 col-md-12 card _tableview container text-light rounded-5" style="margin-top:10vh">
             <div class="card-body justify-content-center ">
                 <h5 class="card-title">Manage User</h5>
                 <div class=" d-flex justify-content-end grid gap-3 p-3">
@@ -73,16 +73,16 @@
                     <button type="button" class="btn btn-secondary" id="EditUser" onclick="EditThisUser()" disabled>EDIT</button>
                     <button type="button" class="btn btn-danger" id="DelUser" disabled>DELETE</button>
                 </div>
-                <table class=" table table-responsive-sm table-hover p-3 table-light text-light opacity-75 col-xl-12 col-12 col-md-12 col-xxl-12 col-lg-12" id="display-table">
-                    <thead>
-                        <tr >
-                            <th class="rounded-start"><input name="select_all" id="all" value="1" type="checkbox" class="select-checkbox"></th>
+                <table class=" table table-responsive-sm table-hover table-light text-light opacity-75 col-xl-12 col-12 col-md-12 col-xxl-12 col-lg-12 rounded-3" id="display-table">
+                    <thead class="rounded-3 p-1">
+                        <tr>
+                            <th class=""><input name="select_all" id="all" value="1" type="checkbox" class="select-checkbox"></th>
                             <th class="text-dark ">UserName</th>
-                            <th class="text-dark rounded-end">Email Id</th>
+                            <th class="text-dark">Email Id</th>
                             <th style="display:none"></th>
                         </tr>
                     </thead>
-                    <tbody class="text-light">
+                    <tbody class="text-light p-1">
                         @for (int i = 0; i < Model.Count; i++)
                         {
                             <tr>
