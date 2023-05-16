@@ -83,28 +83,26 @@
 
 ._tableview {
     backdrop-filter: blur(20%) !important;
-    background-color: rgba(0, 0, 0, 0.5)!important;
-
-}
-tbody{
-    border-radius:1vw !important;
+    background-color: rgba(0, 0, 0, 0.5) !important;
 }
 
-.popup {   
+tbody {
+    border-radius: 1vw !important;
+}
+
+.popup {
     display: none;
     position: fixed;
     left: 40%;
     margin-left: -100px;
     height: 180px;
-    top: 30%;
-    margin-top: -32vh;
+    top: 50%;
+    margin-top: -50vh;
     z-index: 1;
-
 }
 
 
 #ADDuser:after {
-    
     position: fixed;
     content: "";
     top: 0;
@@ -116,7 +114,6 @@ tbody{
 }
 
 #userEditr:before {
-    
     position: absolute;
     content: "";
     top: 0;
@@ -128,7 +125,6 @@ tbody{
 }
 
 #userEdit:after {
-    
     position: fixed;
     content: "";
     top: 0;
@@ -150,13 +146,16 @@ tbody{
     background: #FFF;
     z-index: -1;
 }
+
 #ADDuser {
     border-radius: 2vh !important;
     display: none;
 }
-#userEdit {    
+
+#userEdit {
     display: none;
 }
+
 @keyframes shake {
     0% {
         transform: translate(1px, 1px) rotate(0deg);
@@ -201,8 +200,8 @@ tbody{
     100% {
         transform: translate(1px, -2px) rotate(-1deg);
     }
-
 }
+
 @-webkit-keyframes fadeIn {
     from {
         opacity: 0;
