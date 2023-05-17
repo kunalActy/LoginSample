@@ -66,6 +66,7 @@ $(document).ready(function () {
 
     // Manual selection
     $('.isCheck').on('change', function () {
+        selectedRows = [];
         selectedIndex = [];
         for (var i = 0; i < chks.length; i++) {
             if (chks[i].checked) {
