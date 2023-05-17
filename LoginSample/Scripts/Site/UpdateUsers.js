@@ -46,6 +46,7 @@ $(document).ready(function () {
 
     // Multiple check or all selection
     $('#all').click(function (e) {
+        selectedRows = [];
         selectedIndex = [];
         $('#display-table tbody :checkbox').prop('checked', $(this).is(':checked'));
         HideButtons();
