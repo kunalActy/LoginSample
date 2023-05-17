@@ -33,6 +33,7 @@ namespace LoginSample.Controllers
             {
                 Session.Clear();
                 HttpCookie userc = Request.Cookies["user"];
+                HttpCookie userT = Request.Cookies["uType"];
                 if (userc == null)
                 {
                     // Model
@@ -73,12 +74,24 @@ namespace LoginSample.Controllers
             try
             {
                 HttpCookie userc = Request.Cookies["user"];
+                HttpCookie userT = Request.Cookies["uType"];
+                if(!userT.Value.Equals("Admin"))
+                {
+                    Session["IsFromMyAction"] = false;
+                    if (Request.Cookies["user"] != null)
+                    {
+                        Response.Cookies["user"].Expires = DateTime.Now.AddDays(-1);
+                        Session.Abandon();
+                    }
+                    return RedirectToAction("PageError", "Home");
+                }
                 if (userc.Value.Equals("")&& Request.Cookies["user"] == null)
                 {
                     return RedirectToAction("Index", "Home");
                 }
                 if ((bool)Session["IsFromMyAction"] == true)
                 {
+                    
                     List<LoginInfo> userData = new List<LoginInfo>();
                     userData = GetUsers();
                     userc = Request.Cookies["user"];
@@ -94,6 +107,11 @@ namespace LoginSample.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+        }
+
+        public ActionResult PageError()
+        {
+            return View();
         }
 
         /// <summary>
@@ -156,6 +174,9 @@ namespace LoginSample.Controllers
         {
             try
             {
+                HttpCookie UserTypeCookie = new HttpCookie("uType", userType);
+                UserTypeCookie.Expires.AddHours(1);
+                HttpContext.Response.SetCookie(UserTypeCookie);
                 DataSet ds = dbAccesser.GetUsers(userType);
                 var modelObj = new LoginInfo();
                 modelObj.UserName = new List<SelectListItem>();

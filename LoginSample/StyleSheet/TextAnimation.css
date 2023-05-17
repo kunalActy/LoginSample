@@ -25,7 +25,7 @@
 }
 
 .text {
-    animation: typewriter 5s steps(19) infinite, blinkText 900ms steps(19) infinite;
+    animation: typewriter 1.5s steps(19) infinite, blinkText 900ms steps(19) infinite;
 }
 
 @keyframes typewriter {
@@ -47,6 +47,7 @@
         border-right-color: transparent;
     }
 }
+
 
 .__div {
     backdrop-filter: blur(20%);
