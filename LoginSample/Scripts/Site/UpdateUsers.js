@@ -1,6 +1,8 @@
 ﻿
 // Button display
 var defUserName;
+var selectedRows = [];
+var selectedIndex = [];
 function HideButtons() {
     if ($('.isCheck:checked').length == 1) {
         document.getElementById("DelUser").disabled = false;
@@ -9,14 +11,14 @@ function HideButtons() {
     else if ($('.isCheck:checked').length > 1) {
         document.getElementById("DelUser").disabled = false;
         document.getElementById("EditUser").disabled = true;
+        
     }
     else {
         document.getElementById("DelUser").disabled = true;
         document.getElementById("EditUser").disabled = true;
+        
     }
 }
-var selectedRows = [];
-var selectedIndex = [];
 
 
 // Check box 
@@ -43,7 +45,8 @@ $(document).ready(function () {
     var chks = tblData.getElementsByClassName("isCheck");
 
     // Multiple check or all selection
-    $('#all').change(function (e) {
+    $('#all').click(function (e) {
+        selectedIndex = [];
         $('#display-table tbody :checkbox').prop('checked', $(this).is(':checked'));
         HideButtons();
         for (var i = 0; i < chks.length; i++) {
@@ -63,15 +66,18 @@ $(document).ready(function () {
 
     // Manual selection
     $('.isCheck').on('change', function () {
-        if ($(this).is(':checked')) {
-            var data = table.row($(this).closest('tr')).data();
-             selectedRows.push(data[1]);
-            selectedIndex.push(data[3]);
-            var editdata = [];
-            editdata.push(data[1], data[2]);
-        } else {
-            var index = selectedRows.indexOf(data);
-            selectedRows.splice(index, 1);
+        selectedIndex = [];
+        for (var i = 0; i < chks.length; i++) {
+            if (chks[i].checked) {
+                var data = table.row($(chks[i]).closest('tr')).data();
+                selectedRows.push(data[1]);
+                selectedIndex.push(data[3]);
+                var editdata = [];
+                editdata.push(data[1], data[2]);
+            } else {
+                var index = selectedRows.indexOf(data);
+                selectedRows.splice(index, 1);
+            }
         }
     });
 
@@ -131,7 +137,7 @@ function hide() {
 }
 function EditThisUser() {
     var viewPopup = document.getElementById("userEdit");
-    
+
     // Edit user details
     var url = "/Home/GetThisUser/";
     $.ajax({
@@ -149,7 +155,7 @@ function EditThisUser() {
                     alert(data.error);
                     return window.location.href = "/Home/AdminPage";
                 }
-                else {                   
+                else {
                     defUserName = model.SelectedUser;
                     console.log(model.SelectedUser);
                     document.getElementById("EditUserName").value = model.SelectedUser;
@@ -168,7 +174,7 @@ function EditThisUser() {
 function hideEdituser() {
     var viewPopup = document.getElementById("userEdit");
     viewPopup.style.display = "none";
-    
+
 }
 
 // To edit details of existing user
@@ -190,7 +196,7 @@ function UpdateSelectedUser() {
     if (userid.length < 3 || userid == "") {
         usern.textContent = "*Required"
         viewPopup.style.animation = "shake 0.5s";
-        usern.style.display = "block";        
+        usern.style.display = "block";
         return;
     }
     if (userid.length > 20) {
