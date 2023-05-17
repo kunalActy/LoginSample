@@ -98,54 +98,80 @@
         </div>
     </div>
 
-    <div class="popup card col-xl-4 col-lg-4 col-sm-8 col-md-5 model " id="ADDuser">
 
-        <div class="card-body rounded-circle">
-            <h5 class="modal-title ">Add new user</h5>
-            <div class="d-flex justify-content-start mt-3">
-                <label for="exampleInputPassword1" class="form-label text-dark col-4 fw-bold fs-5">UserName:</label>
-                @Html.TextBox("NewUser", "", new { @class = "form-control form-control ", @id = "NewUser" })
-            </div>
-            <label class="text-danger col-8 text-right" id="dropDErr" style="margin-left:10vw">*Enter valid username</label>
-            <div class="d-flex justify-content-start mt-3">
-                <label for="exampleInputPassword1" class="form-label text-dark col-4 fw-bold fs-5">Password:</label>
-                @Html.Password("NewUserPassword", "", new { @class = "form-control", @id = "NewUserPassword" })
-            </div>
-            <label class="text-danger col-6 text-right" id="dropDErr1" style="margin-left:10vw">*required</label>
-            <div class="d-flex justify-content-start mt-3">
-                <label for="exampleInputPassword1" class="form-label text-dark col-4 fw-bold fs-5">User Email:</label>
-                @Html.TextBox("NewUserEmail", "", new { @class = "form-control", @id = "NewUserEmail" })
-            </div>
-            <label class="text-danger col-6 text-right" id="dropDErr2" style="margin-left:10vw">*required</label>
-            <div class="d-flex justify-content-around mt-3">
-                <a href="#" class="btn btn-primary btn-lg" id="btnUpdate" onclick="AddNewUser()">Add</a>
-                <a href="#" class="btn btn-outline-warning btn-lg" type="reset" onclick="hide()">Cancel</a>
+    <!--Edit user model-->
+    <div class="modal" id="userEdit">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit existing user</h4>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="d-flex justify-content-start mt-3">
+                        <label for="exampleInputPassword1" class="form-label text-dark col-4 fw-bold fs-5">UserName:</label>
+                        @Html.TextBox("EditUserName", "", new { @class = "form-control form-control ", @id = "EditUserName" })
+                    </div>
+                    <label class="text-danger col-6 text-right" id="EditErr" style="margin-left:10vw">*Enter valid username</label>
+                    <div class="d-flex justify-content-start mt-3">
+                        <label for="exampleInputPassword1" class="form-label text-dark col-4 fw-bold fs-5">Password:</label>
+                        @Html.Password("EditUserPassword", "", new { @class = "form-control", @id = "EditUserPassword" })
+                    </div>
+                    <label class="text-danger col-6 text-right" id="EditErr1" style="margin-left:10vw">*required</label>
+                    <div class="d-flex justify-content-start mt-3">
+                        <label for="exampleInputPassword1" class="form-label text-dark col-4 fw-bold fs-5">User Email:</label>
+                        @Html.TextBox("EditUserEmail", "", new { @class = "form-control", @id = "EditUserEmail" })
+                    </div>
+                    <label class="text-danger col-6 text-right" id="EditErr2" style="margin-left:10vw">*required</label>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer d-flex justify-content-around mt-3">
+                    <a href="#" class="btn btn-primary btn-lg" id="btnUpdate" onclick="UpdateSelectedUser()">Edit</a>
+                    <a href="#" class="btn btn-outline-warning btn-lg" type="reset" onclick="hideEdituser()">Cancel</a>
+                </div>
             </div>
         </div>
     </div>
+    <!--End Edit user model-->
 
+    <!--Add user model-->
+    <div class="modal" id="ADDuser">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
-    <div class="popup card col-xl-4 col-lg-4 col-sm-8 col-md-5 rounded-5" id="userEdit">
-        <div class="card-body bg-white rounded-5">
-            <h5 class="card-title bg-white">Edit existing user</h5>
-            <div class="d-flex justify-content-start mt-3">
-                <label for="exampleInputPassword1" class="form-label text-dark col-4 fw-bold fs-5">UserName:</label>
-                @Html.TextBox("EditUserName", "", new { @class = "form-control form-control ", @id = "EditUserName" })
-            </div>
-            <label class="text-danger col-6 text-right" id="EditErr" style="margin-left:10vw">*Enter valid username</label>
-            <div class="d-flex justify-content-start mt-3">
-                <label for="exampleInputPassword1" class="form-label text-dark col-4 fw-bold fs-5">Password:</label>
-                @Html.Password("EditUserPassword", "", new { @class = "form-control", @id = "EditUserPassword" })
-            </div>
-            <label class="text-danger col-6 text-right" id="EditErr1" style="margin-left:10vw">*required</label>
-            <div class="d-flex justify-content-start mt-3">
-                <label for="exampleInputPassword1" class="form-label text-dark col-4 fw-bold fs-5">User Email:</label>
-                @Html.TextBox("EditUserEmail", "", new { @class = "form-control", @id = "EditUserEmail" })
-            </div>
-            <label class="text-danger col-6 text-right" id="EditErr2" style="margin-left:10vw">*required</label>
-            <div class="d-flex justify-content-around mt-3">
-                <a href="#" class="btn btn-primary btn-lg" id="btnUpdate" onclick="UpdateSelectedUser()">Edit</a>
-                <a href="#" class="btn btn-outline-warning btn-lg" type="reset" onclick="hideEdituser()">Cancel</a>
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Add new user</h4>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="d-flex justify-content-start mt-3">
+                        <label for="exampleInputPassword1" class="form-label text-dark col-4 fw-bold fs-5">UserName:</label>
+                        @Html.TextBox("NewUser", "", new { @class = "form-control form-control ", @id = "NewUser" })
+                    </div>
+                    <label class="text-danger col-8 text-right" id="dropDErr" style="margin-left:10vw">*Enter valid username</label>
+                    <div class="d-flex justify-content-start mt-3">
+                        <label for="exampleInputPassword1" class="form-label text-dark col-4 fw-bold fs-5">Password:</label>
+                        @Html.Password("NewUserPassword", "", new { @class = "form-control", @id = "NewUserPassword" })
+                    </div>
+                    <label class="text-danger col-6 text-right" id="dropDErr1" style="margin-left:10vw">*required</label>
+                    <div class="d-flex justify-content-start mt-3">
+                        <label for="exampleInputPassword1" class="form-label text-dark col-4 fw-bold fs-5">User Email:</label>
+                        @Html.TextBox("NewUserEmail", "", new { @class = "form-control", @id = "NewUserEmail" })
+                    </div>
+                    <label class="text-danger col-6 text-right" id="dropDErr2" style="margin-left:10vw">*required</label>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer d-flex justify-content-around mt-3">
+                    <a href="#" class="btn btn-primary btn-lg" id="btnUpdate" onclick="AddNewUser()">Add</a>
+                    <a href="#" class="btn btn-outline-warning btn-lg" type="reset" onclick="hide()">Cancel</a>
+                </div>
+
             </div>
         </div>
     </div>
