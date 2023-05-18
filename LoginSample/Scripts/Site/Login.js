@@ -1,4 +1,4 @@
-﻿function ValidateUser() {    
+﻿function ValidateUser() {
     var view = document.getElementById("view");
     var userid = $("#SelectedUser").val();
     var password = $("#UserPassword").val();
@@ -36,8 +36,7 @@
             } else {
                 view.textContent = " *Wrong password";
                 view.style.display = "block";
-            }
-           
+            }          
         },
         error: function (reponse) {
             alert("error : " + reponse);
@@ -45,3 +44,9 @@
     });
     $("#btnlogin").val('Login');
 }
+document.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+        event.preventDefault(); // Prevent form submission
+        ValidateUser(); // Trigger the form submission
+    }
+});

@@ -3,6 +3,7 @@
 var defUserName;
 var selectedRows = [];
 var selectedIndex = [];
+var editor = document.getElementById("EditUser");
 function HideButtons() {
     if ($('.isCheck:checked').length == 1) {
         document.getElementById("DelUser").disabled = false;
@@ -139,6 +140,12 @@ function hide() {
 }
 function EditThisUser() {
     var viewPopup = document.getElementById("userEdit");
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault(); // Prevent form submission
+            UpdateSelectedUser() // Trigger the form submission
+        }
+    });
 
     // Edit user details
     var url = "/Home/GetThisUser/";
