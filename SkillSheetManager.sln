@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.33328.57
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoginSample", "LoginSample\LoginSample.csproj", "{11DDDB73-C57A-491D-9EA4-7F83979955EC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkillSheetManager", "LoginSample\SkillSheetManager.csproj", "{11DDDB73-C57A-491D-9EA4-7F83979955EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
