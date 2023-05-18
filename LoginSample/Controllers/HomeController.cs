@@ -85,13 +85,13 @@ namespace LoginSample.Controllers
                     }
                     return RedirectToAction("PageError", "Home");
                 }
-                if (userc.Value.Equals("")&& Request.Cookies["user"] == null)
+                
+                if (Request.Cookies["user"] == null)
                 {
                     return RedirectToAction("Index", "Home");
                 }
                 if ((bool)Session["IsFromMyAction"] == true)
-                {
-                    
+                {                    
                     List<LoginInfo> userData = new List<LoginInfo>();
                     userData = GetUsers();
                     userc = Request.Cookies["user"];
@@ -100,12 +100,12 @@ namespace LoginSample.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("logout", "Home");
                 }
             }
             catch
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("logout", "Home");
             }
         }
 
