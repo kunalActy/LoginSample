@@ -31,7 +31,7 @@
                 }
                 else {
                     alert("User page is under process");
-                    return window.location.href = "/Home/Index";
+                    return window.location.href = "/Home/logout";
                 }
             } else {
                 view.textContent = " *Wrong password";
