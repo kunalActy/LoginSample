@@ -16,8 +16,7 @@ function HideButtons() {
     }
     else {
         document.getElementById("DelUser").disabled = true;
-        document.getElementById("EditUser").disabled = true;
-        
+        document.getElementById("EditUser").disabled = true;      
     }
 }
 
@@ -77,9 +76,9 @@ $(document).ready(function () {
                 selectedIndex.push(data[3]);
                 var editdata = [];
                 editdata.push(data[1], data[2]);
-            } else {
-                var index = selectedRows.indexOf(data);
-                selectedRows.splice(index, 1);
+                for (var un = 0; un < data.length; un++) {
+                    // selectedRows.push(data[0]);
+                }
             }
         }
     });
@@ -106,26 +105,7 @@ $(document).ready(function () {
         } else {
             text = "You canceled!";
         }
-    });
-    // edit user
-    function EditSelectedUser() {
-        var url = "/Home/DeleteUse/";
-        console.log(selectedRows);
-
-        $.ajax({
-            url: url,
-            data: { userid: selectedRows },
-            cache: false,
-            type: "POST",
-            success: function (data) {
-                alert("User upadted");
-                return window.location.href = "/Home/AdminPage";
-            },
-            error: function (reponse) {
-                alert("error : " + reponse);
-            }
-        });
-    }
+    });  
 });
 
 // CURD buttons
