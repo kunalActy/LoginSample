@@ -29,21 +29,51 @@ function AddNewUser() {
     if (userid.length > 3) {
         usern.style.display = "none";
     }
+    //---------Password------------
     if (password == "") {
         viewPopup.style.animation = "shake 0.5s";
         upass.style.display = "block";
         upass.textContent = "*Required";
         return;
-    }
-    if (!password.match(regex)) {        
+    }   
+    if (password.length < 8) {
         viewPopup.style.animation = "shake 0.5s";
         upass.style.display = "block";
-        upass.textContent = "*Oops! Too weak password ! for refrence Ex: Acty@1947";
+        upass.textContent = ("Password must be at least 8 characters long.");
+        return;
+    }
+
+    // Validate password strength (add more conditions as needed)
+    if (!/\d/.test(password)) {
+        viewPopup.style.animation = "shake 0.5s";
+        upass.style.display = "block";
+        upass.textContent = ("Password must contain at least one digit.");
+        return;
+    }
+
+    if (!/[a-z]/.test(password)) {
+        viewPopup.style.animation = "shake 0.5s";
+        upass.style.display = "block";
+        upass.textContent = ("Password must contain at least one lowercase letter.");
+        return;
+    }
+
+    if (!/[A-Z]/.test(password)) {
+        viewPopup.style.animation = "shake 0.5s";
+        upass.style.display = "block";
+        upass.textContent = ("Password must contain at least one uppercase letter.");
+        return;
+    }
+    if (!/\W/.test(password)) {
+        viewPopup.style.animation = "shake 0.5s";
+        upass.style.display = "block";
+        upass.textContent = ("Password must contain at least one special character.");
         return;
     }
     if (password.match(regex)) {
         upass.style.display = "none";
     }
+    //----password end---------
     if (!emailset.test(userEmail)) {
         viewPopup.style.animation = "shake 0.5s";
         uEmail.style.display = "block";
@@ -62,7 +92,7 @@ function AddNewUser() {
                     return window.location.href = "/Home/AdminPage";
                 }
                 else {
-                    alert("Such user already there");
+                    alert("You can't use this username! , Find unique one");
                 }
             },
             error: function (reponse) {
