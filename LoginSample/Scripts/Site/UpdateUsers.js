@@ -189,7 +189,10 @@ function hide() {
     viewPopup.style.display = "none";
     document.getElementById('NewUser').value = '';
     document.getElementById('NewUserPassword').value = '';
-    document.getElementById('NewUserEmail').value = '';   
+    document.getElementById('NewUserEmail').value = '';
+    document.getElementById('dropDErr').style.display = "none";
+    document.getElementById('dropDErr1').style.display = "none";
+    document.getElementById('dropDErr2').style.display = "none";
 }
 function EditThisUser() {
     var viewPopup = document.getElementById("userEdit");

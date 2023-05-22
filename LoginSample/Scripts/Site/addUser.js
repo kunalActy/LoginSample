@@ -81,6 +81,7 @@ function AddNewUser() {
         return;
     }
     else {
+        uEmail.style.display = "none";
         $.ajax({
             url: url,
             data: { userId: userid, pass: password, userEmail: userEmail },
