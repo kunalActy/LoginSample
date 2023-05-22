@@ -12,41 +12,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Skill Sheet manager</title>
-    <script>
-
-        function highlight_row() {
-            var table = document.getElementById('display-table');
-            var cells = table.getElementsByTagName('td');
-
-            for (var i = 0; i < cells.length; i++) {
-                // Take each cell
-                var cell = cells[i];
-                // do something on onclick event for cell
-                cell.onclick = function () {
-                    // Get the row id where the cell exists
-                    var rowId = this.parentNode.rowIndex;
-
-                    var rowsNotSelected = table.getElementsByTagName('tr');
-                    for (var row = 0; row < rowsNotSelected.length; row++) {
-                        rowsNotSelected[row].style.backgroundColor = "";
-                        rowsNotSelected[row].classList.remove('selected');
-                    }
-                    var rowSelected = table.getElementsByTagName('tr')[rowId];
-                    rowSelected.style.backgroundColor = "lightblue";
-                    rowSelected.className += " selected";
-                }
-            }
-        } //end of function
-        window.onload = highlight_row;
-    </script>
+    <script src="~/Scripts/Site/EditSelection.js" type="text/javascript"></script>
     <script src="~/Scripts/Site/addUser.js"></script>
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="~/Content/bootstrap.css">
     <link rel="stylesheet" href="~/StyleSheet/TextAnimation.css">
     <link rel="stylesheet" href="~/StyleSheet/Datatable.css">
     <link rel="stylesheet" href="~/Content/font-awesome.css">
     <link rel="stylesheet" href="~/Content/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
@@ -54,6 +30,7 @@
     <link rel="stylesheet" href="~/Content/DataTables/css/select.dataTables.min.css" />
     <script src="~/Scripts/Site/UpdateUsers.js"></script>
     <script src="~/Scripts/Site/Backprevent.js"></script>
+    <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.7/js/dataTables.checkboxes.min.js"></script>
 </head>
 <body>
 
@@ -73,16 +50,16 @@
                     <button type="button" class="btn btn-secondary" id="EditUser" onclick="EditThisUser()" disabled>EDIT</button>
                     <button type="button" class="btn btn-danger" id="DelUser" disabled>DELETE</button>
                 </div>
-                <table class=" table table-responsive-sm table-hover table-light text-light opacity-75 col-xl-12 col-12 col-md-12 col-xxl-12 col-lg-12 rounded-3" id="display-table">
-                    <thead class="rounded-3 p-1">
+                <table class=" table table-responsive table-hover table-light text-light opacity-75 col-xl-12 col-12 col-md-12 col-xxl-12 col-lg-12 rounded-2" id="display-table">
+                    <thead class="">
                         <tr>
                             <th class=""><input name="select_all" id="all" value="1" type="checkbox" class="select-checkbox"></th>
-                            <th class="text-dark ">UserName</th>
+                            <th class="text-dark">UserName</th>
                             <th class="text-dark">Email Id</th>
                             <th style="display:none"></th>
                         </tr>
                     </thead>
-                    <tbody class="text-light p-1">
+                    <tbody class="text-light">
                         @for (int i = 0; i < Model.Count; i++)
                         {
                             <tr>

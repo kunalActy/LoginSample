@@ -2,6 +2,7 @@
     background-image: url('/Images/pexels-mo-eid-8347501 (2).jpg');
     background-repeat: no-repeat;
     overflow-x: hidden; /* Hide horizontal scrollbar */
+    overflow-y: hidden;
     background-attachment: fixed;
     background-position: center;
     background-size: cover;

@@ -11,11 +11,11 @@ input {
 }
 table {
     border: 5px solid;
-    border-bottom: 5px solid !important;
+    border-bottom: 5px solid !important;   
 }
-.dataTables_wrapper 
-{
-    padding-bottom:1vw;
+
+.dataTables_wrapper {
+    padding-bottom: 1vw;
 }
 .dataTables_filter{
     padding-bottom:1vw;

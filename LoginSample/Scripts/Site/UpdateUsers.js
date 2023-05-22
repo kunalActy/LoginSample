@@ -3,32 +3,71 @@
 var defUserName;
 var selectedRows = [];
 var selectedIndex = [];
+var roesel;
+
+var idToEdit;
 var editor = document.getElementById("EditUser");
 function HideButtons() {
     if ($('.isCheck:checked').length == 1) {
         document.getElementById("DelUser").disabled = false;
-        document.getElementById("EditUser").disabled = false;
     }
     else if ($('.isCheck:checked').length > 1) {
         document.getElementById("DelUser").disabled = false;
-        document.getElementById("EditUser").disabled = true;
-        
     }
     else {
         document.getElementById("DelUser").disabled = true;
-        document.getElementById("EditUser").disabled = true;      
+        document.getElementById("EditUser").disabled = true;
     }
 }
+var tdindexing;
+function highlight_row() {
+    var table = document.getElementById('display-table');
+    var cells = table.getElementsByTagName('td');
+    for (var i = 0; i < cells.length; i++) {
+        // Take each cell
+        var cell = cells[i];
+        // do something on onclick event for cell
+        cell.onclick = function () {
+            // Get the row id where the cell exists
+            var rowId = this.parentNode.rowIndex;
+            // var data = table.row($(chks[i]).closest('tr')).data();
+            document.getElementById("EditUser").disabled = false;
+            var rowsNotSelected = table.getElementsByTagName('tr');
+            var currentRow = $(this).closest("tr");
+            idToEdit = currentRow.find("td:eq(3)").text();
+        }
+    }
+}
+function BoxChecker() {
+    var table = document.getElementById('display-table');
+    var chks = table.getElementsByClassName('isCheck');
+    selectedRows = [];
+    selectedIndex = [];
+    for (var i = 0; i < chks.length; i++) {
+        if (chks[i].checked) {
+            HideButtons();
+            var data = table.row($(chks[i]).closest('tr')).data();
+            selectedRows.push(data[1]);
+            selectedIndex.push(data[3]);
+            var editdata = [];
+            editdata.push(data[1], data[2]);
+        }
+    }
+}
+//end of function
+// window.onclick = highlight_row;
 
 
 // Check box 
 $(document).ready(function () {
-
+    highlight_row();
     $('#display-table').DataTable({
+
         'columnDefs': [{
             orderable: false,
             searchable: false,
-            scrolly: '200px',
+            scrolly: '200vh',
+            "scrollX": true,
             scrollCollapse: true,
             className: 'select-checkboxes',
             targets: 0,
@@ -36,49 +75,80 @@ $(document).ready(function () {
             'render': function (data, type, full, meta) {
                 return '<input type="checkbox" class="isCheck">';
             }
-        }],
+        }], scrollY: '460px',
+        scrollCollapse: true,
         'order': [[1, 'asc']]
 
     });
     var table = $('#display-table').DataTable();
     var tblData = document.getElementById("display-table");
     var chks = tblData.getElementsByClassName("isCheck");
+    $(".paginate_button").click(function (e) {
+        BoxChecker();
+        console.log("PAgin clicked");
+        $('.isCheck').change(function () {
+            console.log("hello");
+            HideButtons();
+            selectedRows = [];
+            selectedIndex = [];
+            for (var i = 0; i < chks.length; i++) {
+                if (chks[i].checked) {
+                    HideButtons();
+                    var data = table.row($(chks[i]).closest('tr')).data();
+                    selectedRows.push(data[1]);
+                    selectedIndex.push(data[3]);
+                    console.log(selectedRows);
+                    var editdata = [];
+                    editdata.push(data[1], data[2]);
+                }
+            }
+        });
+
+    });
+    $('#display-table tbody').on('click', 'tr', function () {
+        if ($(this).hasClass('selected')) {
+            $(this).removeClass('selected');
+            document.getElementById("EditUser").disabled = true;
+        } else {
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+    });
+
 
     // Multiple check or all selection
-    $('#all').click(function (e) {
+    $('#all').change(function (e) {
         selectedRows = [];
         selectedIndex = [];
         $('#display-table tbody :checkbox').prop('checked', $(this).is(':checked'));
         HideButtons();
         for (var i = 0; i < chks.length; i++) {
             if (chks[i].checked) {
+                HideButtons();
+                document.getElementById("DelUser").disabled = false;
                 var data = table.row($(chks[i]).closest('tr')).data();
                 selectedRows.push(data[1]);
                 selectedIndex.push(data[3]);
-                console.log("hello");
-                console.log(data[3]);
+                // console.log(data[3]);
             }
         }
     });
 
-    $('.isCheck').change(function () {
-        HideButtons();
-    });
 
     // Manual selection
-    $('.isCheck').on('change', function () {
+    $('.isCheck').change(function () {
+        console.log("hello");
+        HideButtons();
         selectedRows = [];
         selectedIndex = [];
         for (var i = 0; i < chks.length; i++) {
             if (chks[i].checked) {
+                HideButtons();
                 var data = table.row($(chks[i]).closest('tr')).data();
                 selectedRows.push(data[1]);
                 selectedIndex.push(data[3]);
                 var editdata = [];
                 editdata.push(data[1], data[2]);
-                for (var un = 0; un < data.length; un++) {
-                    // selectedRows.push(data[0]);
-                }
             }
         }
     });
@@ -105,7 +175,7 @@ $(document).ready(function () {
         } else {
             text = "You canceled!";
         }
-    });  
+    });
 });
 
 // CURD buttons
@@ -117,6 +187,9 @@ function display() {
 function hide() {
     var viewPopup = document.getElementById("ADDuser");
     viewPopup.style.display = "none";
+    document.getElementById('NewUser').value = '';
+    document.getElementById('NewUserPassword').value = '';
+    document.getElementById('NewUserEmail').value = '';   
 }
 function EditThisUser() {
     var viewPopup = document.getElementById("userEdit");
@@ -131,7 +204,7 @@ function EditThisUser() {
     var url = "/Home/GetThisUser/";
     $.ajax({
         url: url,
-        data: { uid: selectedIndex },
+        data: { uid: idToEdit },
         cache: false,
         type: "POST",
         dataType: "JSON",
@@ -221,7 +294,7 @@ function UpdateSelectedUser() {
     else {
         $.ajax({
             url: url,
-            data: { uid: selectedIndex, SelectedUname: defUserName, newUname: userid, newPassword: password, newEmail: uemail },
+            data: { uid: idToEdit, SelectedUname: defUserName, newUname: userid, newPassword: password, newEmail: uemail },
             cache: false,
             type: "POST",
             success: function (data) {
@@ -239,3 +312,20 @@ function UpdateSelectedUser() {
         });
     }
 }
+$(document).change(function () {
+    $(".paginate_button").on("click", function (e) {
+        var tblData = document.getElementById("display-table");
+        var chks = tblData.getElementsByClassName("isCheck");
+        BoxChecker();
+        for (var i = 0; i < chks.length; i++) {
+            if (chks[i].checked) {
+                HideButtons();
+                var data = table.row($(chks[i]).closest('tr')).data();
+                selectedRows.push(data[1]);
+                selectedIndex.push(data[3]);
+                var editdata = [];
+                editdata.push(data[1], data[2]);
+            }
+        }
+    });
+});
