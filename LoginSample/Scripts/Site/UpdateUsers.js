@@ -40,9 +40,7 @@ function highlight_row() {
 }
 function BoxChecker() {
     var table = document.getElementById('display-table');
-    var chks = table.getElementsByClassName('isCheck');
-    selectedRows = [];
-    selectedIndex = [];
+    var chks = table.getElementsByClassName('isCheck');  
     for (var i = 0; i < chks.length; i++) {
         if (chks[i].checked) {
             HideButtons();
@@ -62,7 +60,6 @@ function BoxChecker() {
 $(document).ready(function () {
     highlight_row();
     $('#display-table').DataTable({
-
         'columnDefs': [{
             orderable: false,
             searchable: false,
@@ -89,8 +86,7 @@ $(document).ready(function () {
         $('.isCheck').change(function () {
             console.log("hello");
             HideButtons();
-            selectedRows = [];
-            selectedIndex = [];
+          
             for (var i = 0; i < chks.length; i++) {
                 if (chks[i].checked) {
                     HideButtons();
@@ -351,13 +347,14 @@ $(document).change(function () {
         BoxChecker();
         for (var i = 0; i < chks.length; i++) {
             if (chks[i].checked) {
+                document.getElementById("DelUser").disabled = false;
                 HideButtons();
                 var data = table.row($(chks[i]).closest('tr')).data();
                 selectedRows.push(data[1]);
                 selectedIndex.push(data[3]);
                 var editdata = [];
                 editdata.push(data[1], data[2]);
-            }
+            }            
         }
     });
 });

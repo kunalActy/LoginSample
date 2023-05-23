@@ -277,6 +277,8 @@
     <Content Include="Content\DataTables\css\select.foundation.min.css" />
     <Content Include="Content\DataTables\css\select.jqueryui.css" />
     <Content Include="Content\DataTables\css\select.jqueryui.min.css" />
+    <Content Include="Content\DataTables\Datatable.min.css" />
+    <Content Include="Content\DataTables\FontAwesome.css" />
     <Content Include="Content\DataTables\images\back_disabled.jpg" />
     <Content Include="Content\DataTables\images\back_enabled.jpg" />
     <Content Include="Content\DataTables\images\details_close.png" />
@@ -312,6 +314,7 @@
       <DependentUpon>Dbconn.edmx</DependentUpon>
       <LastGenOutput>Dbconn.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\AjaxJquery.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />

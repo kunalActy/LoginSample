@@ -22,15 +22,17 @@
     <link rel="stylesheet" href="~/StyleSheet/Datatable.css">
     <link rel="stylesheet" href="~/Content/font-awesome.css">
     <link rel="stylesheet" href="~/Content/font-awesome.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="~/Scripts/AjaxJquery.min.js"></script>
+    <link href="~/Content/DataTables/FontAwesome.css" rel="stylesheet" />
+    
     <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="~/Content/DataTables/Datatable.min.css" />
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
     <link rel="stylesheet" href="~/Content/DataTables/css/select.dataTables.min.css" />
     <script src="~/Scripts/Site/UpdateUsers.js"></script>
     <script src="~/Scripts/Site/Backprevent.js"></script>
-    <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.7/js/dataTables.checkboxes.min.js"></script>
+
 </head>
 <body>
 
@@ -54,7 +56,7 @@
                     <thead class="">
                         <tr>
                             <th class=""><input name="select_all" id="all" value="1" type="checkbox" class="select-checkbox"></th>
-                            <th class="text-dark">UserName</th>
+                            <th class="text-dark">User name</th>
                             <th class="text-dark">Email Id</th>
                             <th style="display:none"></th>
                         </tr>
@@ -89,7 +91,7 @@
                 <!-- Modal body -->
                 <div class="modal-body">
                     <div class="d-flex justify-content-start mt-3">
-                        <label for="exampleInputPassword1" class="form-label text-dark col-4 fw-bold fs-5">UserName:</label>
+                        <label for="exampleInputPassword1" class="form-label text-dark col-4 fw-bold fs-5">User name:</label>
                         @Html.TextBox("EditUserName", "", new { @class = "form-control form-control ", @id = "EditUserName" })
                     </div>
                     <label class="text-danger col-6 text-right" id="EditErr" style="margin-left:10vw">*Enter valid username</label>
@@ -99,7 +101,7 @@
                     </div>
                     <label class="text-danger col-6 text-right" id="EditErr1" style="margin-left:10vw">*required</label>
                     <div class="d-flex justify-content-start mt-3">
-                        <label for="exampleInputPassword1" class="form-label text-dark col-4 fw-bold fs-5">User Email:</label>
+                        <label for="exampleInputPassword1" class="form-label text-dark col-4 fw-bold fs-5">User email:</label>
                         @Html.TextBox("EditUserEmail", "", new { @class = "form-control", @id = "EditUserEmail" })
                     </div>
                     <label class="text-danger col-6 text-right" id="EditErr2" style="margin-left:10vw">*required</label>
@@ -127,7 +129,7 @@
                 <!-- Modal body -->
                 <div class="modal-body">
                     <div class="d-flex justify-content-start mt-3">
-                        <label for="exampleInputPassword1" class="form-label text-dark col-4 fw-bold fs-5">UserName:</label>
+                        <label for="exampleInputPassword1" class="form-label text-dark col-4 fw-bold fs-5">User name:</label>
                         @Html.TextBox("NewUser", "", new { @class = "form-control form-control ", @id = "NewUser" })
                     </div>
                     <label class="text-danger col-8 text-right" id="dropDErr" style="margin-left:10vw">*Enter valid username</label>
@@ -137,18 +139,16 @@
                     </div>
                     <label class="text-danger col-6 text-right" id="dropDErr1" style="margin-left:10vw">*required</label>
                     <div class="d-flex justify-content-start mt-3">
-                        <label for="exampleInputPassword1" class="form-label text-dark col-4 fw-bold fs-5">User Email:</label>
+                        <label for="exampleInputPassword1" class="form-label text-dark col-4 fw-bold fs-5">User email:</label>
                         @Html.TextBox("NewUserEmail", "", new { @class = "form-control", @id = "NewUserEmail" })
                     </div>
                     <label class="text-danger col-6 text-right" id="dropDErr2" style="margin-left:10vw">*required</label>
                 </div>
-
                 <!-- Modal footer -->
                 <div class="modal-footer d-flex justify-content-around mt-3">
                     <a href="#" class="btn btn-primary btn-lg" id="btnUpdate" onclick="AddNewUser()">Add</a>
                     <a href="#" class="btn btn-outline-warning btn-lg" type="reset" onclick="hide()">Cancel</a>
                 </div>
-
             </div>
         </div>
     </div>
