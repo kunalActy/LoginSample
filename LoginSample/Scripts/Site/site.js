@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    $("#SelectedGroup").click(function () {
+    $("#SelectedGroup").click(function () {     
         var data = { "userType": $("#SelectedGroup").val() }
         $("select[id$=SelectedUser] > option").remove();
         $.ajax({
@@ -16,4 +16,5 @@
             }
         })
     })
+    
 });
