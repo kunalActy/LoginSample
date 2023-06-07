@@ -18,7 +18,6 @@ namespace LoginSample.Controllers
         /// </summary>
         Db_Access.SsmLogInfo dbAccesser = new Db_Access.SsmLogInfo();
 
-
         /// <summary>
         /// Commiting link with database sql server
         /// </summary>
