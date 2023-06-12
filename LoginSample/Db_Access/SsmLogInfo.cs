@@ -62,7 +62,7 @@ namespace LoginSample.Db_Access
             SqlConnection sqlConnector = new SqlConnection(ConnectionString);
             sqlConnector.Open();
             // userPassword = secPass.DecodeFrom64(userPassword);
-            SqlCommand sqlCmd = new SqlCommand("Select UserName,Password from LogInfo where UserName=@uId and password=@uPass ", sqlConnector);
+            SqlCommand sqlCmd = new SqlCommand("Select UserName,Password,userid from LogInfo where UserName=@uId and password=@uPass ", sqlConnector);
             sqlCmd.Parameters.AddWithValue("uId", userName);
             sqlCmd.Parameters.AddWithValue("uPass", userPassword);
             SqlDataAdapter DataSeq = new SqlDataAdapter(sqlCmd);

@@ -25,12 +25,12 @@
         type: "POST",
         success: function (data) {
 
-            if (data == "1") {
+            if (data.length>0) {
                 if (usertype == "Admin") {
                     return window.location.href = "/Home/AdminPage";
                 }
                 else {
-                    alert("User page is under process");
+                    alert("User page is under process your user id is:" + data);
                     return window.location.href = "/Home/logout";
                 }
             } else {

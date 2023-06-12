@@ -1,9 +1,4 @@
-﻿using Amazon.IdentityManagement.Model;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace LoginSample.Models
@@ -55,5 +50,10 @@ namespace LoginSample.Models
         /// New user email
         /// </summary>
         public string NewUserEmail { get; set; }
+
+        /// <summary>
+        /// Value to share to user page
+        /// </summary>
+        public string UserPgId { get; set; }
     }
 }
