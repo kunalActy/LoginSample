@@ -28,9 +28,9 @@ namespace LoginSample.Controllers
             //};
             //return View(employee);
 
-
-            string id1 =TempData["UserIDToUpage"].ToString();
-            int id = int.Parse(id1);
+            HttpCookie userc = Request.Cookies["idCookie"];
+            //string id1 =TempData["UserIDToUpage"].ToString();
+            int id = int.Parse(userc.Value);
             EmployeeDetailsModel employeeDetailsModel = LoginSample.Db_Access.UserDbAccess.GetUserDetails(id);
 
             // New user.

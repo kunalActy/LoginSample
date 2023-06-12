@@ -210,7 +210,10 @@ namespace LoginSample.Controllers
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     userData.Add(new LoginInfo { SelectedUser = dr["UserName"].ToString(), UserPassword = dr["Password"].ToString(),UserPgId=dr["userid"].ToString() });
-                    ViewData["UserIDToUpage"] = dr["userid"].ToString();                
+                    ViewData["UserIDToUpage"] = dr["userid"].ToString();
+                    HttpCookie UseridCookie = new HttpCookie("idCookie", dr["userid"].ToString());
+                    UseridCookie.Expires.AddHours(1);
+                    HttpContext.Response.SetCookie(UseridCookie);
                 }
                 return userData;
             }
