@@ -152,7 +152,7 @@ namespace LoginSample.Controllers
                     HttpCookie UserCookie = new HttpCookie("user", userId);
                     UserCookie.Expires.AddHours(1);
                     HttpContext.Response.SetCookie(UserCookie);
-                    return logResult[0].UserPgId;
+                    return "1";
                 }
                 else
                 {
@@ -203,12 +203,13 @@ namespace LoginSample.Controllers
         private List<LoginInfo> GetDataFromDB(string userName, string userPassword)
         {
             try
-            {
+            {               
                 DataSet ds = dbAccesser.GetLogPass(userName, userPassword);
                 List<LoginInfo> userData = new List<LoginInfo>();
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     userData.Add(new LoginInfo { SelectedUser = dr["UserName"].ToString(), UserPassword = dr["Password"].ToString(),UserPgId=dr["userid"].ToString() });
+                    ViewData["UserIDToUpage"] = dr["userid"].ToString();                
                 }
                 return userData;
             }

@@ -131,8 +131,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\EmployeeDetailsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Db_Access\SsmLogInfo.cs" />
+    <Compile Include="Db_Access\UserDbAccess.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -151,6 +153,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Dbconn.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\EmployeeDetailsModel.cs" />
     <Compile Include="Models\LogInfo.cs">
       <DependentUpon>Dbconn.tt</DependentUpon>
     </Compile>
@@ -458,6 +461,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\AdminPage.cshtml" />
     <Content Include="Views\Home\PageError.cshtml" />
+    <Content Include="Views\EmployeeDetails\EmployeeDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

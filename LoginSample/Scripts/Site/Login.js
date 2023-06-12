@@ -16,32 +16,32 @@
         view.style.display = "block";
         return;
     }
+    else {
+        $("#btnlogin").val('Plesae wait..');
+        $.ajax({
+            url: url,
+            data: { userId: userid, pass: password },
+            cache: false,
+            type: "POST",
+            success: function (data) {
 
-    $("#btnlogin").val('Plesae wait..');
-    $.ajax({
-        url: url,
-        data: { userId: userid, pass: password },
-        cache: false,
-        type: "POST",
-        success: function (data) {
-
-            if (data.length>0) {
-                if (usertype == "Admin") {
-                    return window.location.href = "/Home/AdminPage";
+                if (data == "1") {
+                    if (usertype == "Admin") {
+                        return window.location.href = "/Home/AdminPage";
+                    }
+                    else {
+                        return window.location.href = "/EmployeeDetails/EmployeeDetails";
+                    }
+                } else {
+                    view.textContent = " *Wrong password";
+                    view.style.display = "block";                    
                 }
-                else {
-                    alert("User page is under process your user id is:" + data);
-                    return window.location.href = "/Home/logout";
-                }
-            } else {
-                view.textContent = " *Wrong password";
-                view.style.display = "block";
-            }          
-        },
-        error: function (reponse) {
-            alert("error : " + reponse);
-        }
-    });
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+    }
     $("#btnlogin").val('Login');
 }
 document.addEventListener("keydown", function (event) {
