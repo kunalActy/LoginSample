@@ -177,6 +177,7 @@ namespace LoginSample.Controllers
                 HttpCookie UserTypeCookie = new HttpCookie("uType", userType);
                 UserTypeCookie.Expires.AddHours(1);
                 HttpContext.Response.SetCookie(UserTypeCookie);
+
                 DataSet ds = dbAccesser.GetUsers(userType);
                 var modelObj = new LoginInfo();
                 modelObj.UserName = new List<SelectListItem>();
