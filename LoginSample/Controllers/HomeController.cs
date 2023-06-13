@@ -124,6 +124,7 @@ namespace LoginSample.Controllers
             if (Request.Cookies["user"] != null)
             {
                 Response.Cookies["user"].Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies["idCookie"].Expires = DateTime.Now.AddDays(-1);
                 Session.Abandon();
             }
             return RedirectToAction("Index", "Home");

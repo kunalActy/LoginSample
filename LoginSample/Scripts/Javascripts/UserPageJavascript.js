@@ -28,7 +28,29 @@ function ShowWarning(elementName) {
 }
 
 
-function AddUserDetails(e) {
+function AddUserDetails(uID, isOldUser, photobase64) {
+    // Photo has been selected either by new or old user.
+    if (uPhoto.length != 0) {
+        uPhoto = uPhoto;
+    }
+    else if (photobase64.length != 0) {
+        uPhoto = isOldUser ? photobase64 : "";
+    }
+    else {
+        uPhoto = "";
+    }
+
+    //// There is photo present then for old user use that.
+    //if (photobase64.length != 0) {
+    //    uPhoto = isOldUser ? photobase64 : "";
+    //}
+    //else {
+    //    uPhoto = isOldUser ? "" : uPhoto;
+    //}
+    //if (isOldUser) {
+    //    uPhoto = uPhoto == "" ? photobase64 : uPhoto;
+    //}
+    //uPhoto = isOldUser && uPhoto == "" ? photobase64 : uPhoto;
     var uName = $("#Name").val().trim();
     var uDesignation = $("#Designation").val().trim();
     var uDateOfBirth = $("#DateOfBirth").val();
@@ -122,6 +144,7 @@ function AddUserDetails(e) {
         return;
     }
     var modelObj = {
+        UserId: uID,
         Name: uName,
         Designation: uDesignation,
         DateOfBirth: new Date(uDateOfBirth),
@@ -132,25 +155,28 @@ function AddUserDetails(e) {
         Languages: uLanguages,
         Database: uDatabase
     }
-    SubmitData(modelObj)
+    SubmitData(modelObj, isOldUser)
 }
 
-function SubmitData(modelObj) {
+function SubmitData(modelObj, isOldUser) {
     $.ajax({
         url: "/EmployeeDetails/AddUserData",
         type: "POST",
         data: JSON.stringify({
             "employeeDetailsModel": modelObj,
-            "userPhoto": uPhoto
+            "userPhoto": uPhoto,
+            "isOldUser": isOldUser
         }),
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             data = JSON.parse(data)
             console.log(data);
             alert("Data submitted successfully!!!");
+            location.reload();
         },
         error: function (err) {
             console.log(err);
+            alert("Data submission failed error : " + err);
         }
     })
 }
@@ -428,3 +454,14 @@ function validateLength(element, maxLength) {
         element.value = element.value.slice(0, maxLength);
     }
 }
+function onLogClick() {
+   
+        return window.location.href = "/Home/logout";
+   
+}
+function onChangepass() {
+    
+        alert("Currently in developing stage");
+        return;
+   
+}   

@@ -12,8 +12,13 @@
     string showLanguages = string.Empty;
     string showDatabases = string.Empty;
     string showPhoto = string.Empty;
-    string imageSource = "~/Images/New_Male_PlaceHolder.png" /*"https://www.worthamarts.org/wp-content/uploads/2020/09/Headshot-Placeholder-male.png"*/;
-    if (ViewData.Model != null)
+    string imageSource = "~/Images/New_Male_PlaceHolder.png";
+
+    //Model.UserId = ViewBag.Id;
+    bool isOldUser = ViewBag.IsOldUser;
+
+    //Old user login
+    if (Model.Name != null)
     {
         showName = Model.Name.ToString();
         showDesignation = Model.Designation.ToString();
@@ -46,8 +51,8 @@
                 <div class="dropdown">
                     <button id="myBtn" onclick="myFunction()" class="btn btn-info dropdown-toggle">Options</button>
                     <div id="myDropdown" onclick="myFunction1()" class="dropdown-content">
-                        <a href="#home">Change Password</a>                       
-                        @Html.ActionLink("Log out", "logout", "Home", new { @class = "fa fa-sign-out", @clearHistory = "true" })
+                        <a id="change" onclick="onChangepass()">Change Password</a>
+                        <a id="Log-out" onclick="onLogClick()"> Logout</a>
                     </div>
                 </div>
 
@@ -97,6 +102,7 @@
                     </div>
                 </div>
             </div>
+
 
 
         </div>
@@ -183,7 +189,9 @@
                                                 <div class="form-group focused">
                                                     <label class="form-control-label" for="inputName">Name*</label>
                                                     @*<input type="text" id="inputName" class="form-control form-control-alternative" placeholder="Name" value="">*@
-                                                    @Html.TextBoxFor(model => model.Name, null, new { @id = "Name", @class = "form-control form-control-alternative", placeholder = "Name", oninput = "validateLength(this, 20)" })
+                                                    @Html.TextBoxFor(model => model.Name, new { @id = "Name", @class = "form-control form-control-alternative", @*@disabled = (showName!=string.Empty) ? "disabled" : null,*@placeholder = "Name",
+                                                    oninput = "validateLength(this, 20)"
+                                                })
                                                     <label class="text-danger col-12 text-start" id="requiredName" style="margin-right:20vw; display:none"></label>
 
                                                 </div>
@@ -327,7 +335,7 @@
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center mt-3 gap-5">
-                                    <a href="#!" class="btn btn-sm btn-primary" id="submitButton" onclick="AddUserDetails()">Submit</a>
+                                    <a href="#!" class="btn btn-sm btn-primary" id="submitButton" onclick="AddUserDetails(@Model.UserId, @(isOldUser.ToString().ToLower()), '@HttpUtility.JavaScriptStringEncode(showPhoto)')">Submit</a>
 
                                     <a href="#!" class="btn btn-sm btn-primary" onclick="refreshPage()">Reset</a>
                                     <script>

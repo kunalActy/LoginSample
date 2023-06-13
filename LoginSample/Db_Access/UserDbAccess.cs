@@ -75,7 +75,14 @@ namespace LoginSample.Db_Access
                     sqlCmd.Parameters.AddWithValue("@Qualifications", employeeDetailsModel.Qualification);
                     sqlCmd.Parameters.AddWithValue("@Languages", employeeDetailsModel.Languages);
                     sqlCmd.Parameters.AddWithValue("@DatabaseKnown", employeeDetailsModel.Database);
-                    sqlCmd.Parameters.AddWithValue("@UserPhoto", employeeDetailsModel.Photo);
+                    if (employeeDetailsModel.Photo.Length == 0)
+                    {
+                        sqlCmd.Parameters.Add("@UserPhoto", SqlDbType.VarBinary).Value = DBNull.Value;
+                    }
+                    else
+                    {
+                        sqlCmd.Parameters.Add("@UserPhoto", SqlDbType.VarBinary).Value = employeeDetailsModel.Photo;
+                    }
 
                     sqlCmd.ExecuteNonQuery();
                 }
@@ -86,9 +93,41 @@ namespace LoginSample.Db_Access
             }
         }
 
-        internal static EmployeeDetailsModel GetUserDetails(int id)
+        internal static void EditInfo(EmployeeDetailsModel employeeDetailsModel)
         {
-            EmployeeDetailsModel employeeDetailsModel = new EmployeeDetailsModel();
+            string connectionString = ConfigurationManager.ConnectionStrings["userTableConStr"].ConnectionString;
+            using (SqlConnection sqlCon = new SqlConnection(connectionString))
+            {
+                sqlCon.Open();
+                string query = "UPDATE UserDetailsTable SET Name = @Name, Designation = @Designation, DateOfBirth = @DateOfBirth, Sex = @Sex, JoiningDate = @JoiningDate, WorkedInJapan = @WorkedInJapan, Qualifications = @Qualifications, Languages = @Languages, DatabaseKnown = @DatabaseKnown, UserPhoto = @UserPhoto WHERE UserId = @UserId";
+                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                sqlCmd.Parameters.AddWithValue("@UserId", employeeDetailsModel.UserId);
+                sqlCmd.Parameters.AddWithValue("@Name", employeeDetailsModel.Name);
+                sqlCmd.Parameters.AddWithValue("@Designation", employeeDetailsModel.Designation);
+                sqlCmd.Parameters.AddWithValue("@DateOfBirth", employeeDetailsModel.DateOfBirth);
+                sqlCmd.Parameters.AddWithValue("@Sex", employeeDetailsModel.Sex);
+                sqlCmd.Parameters.AddWithValue("@JoiningDate", employeeDetailsModel.JoiningDate);
+                sqlCmd.Parameters.AddWithValue("@WorkedInJapan", employeeDetailsModel.WorkedInJapan);
+                sqlCmd.Parameters.AddWithValue("@Qualifications", employeeDetailsModel.Qualification);
+                sqlCmd.Parameters.AddWithValue("@Languages", employeeDetailsModel.Languages);
+                sqlCmd.Parameters.AddWithValue("@DatabaseKnown", employeeDetailsModel.Database);
+                if (employeeDetailsModel.Photo.Length == 0)
+                {
+                    sqlCmd.Parameters.Add("@UserPhoto", SqlDbType.VarBinary).Value = DBNull.Value;
+                }
+                else
+                {
+                    sqlCmd.Parameters.Add("@UserPhoto", SqlDbType.VarBinary).Value = employeeDetailsModel.Photo;
+                }
+
+                sqlCmd.ExecuteNonQuery();
+            }
+        }
+
+        internal static bool GetUserDetails(int id, out EmployeeDetailsModel employeeDetailsModel)
+        {
+            //EmployeeDetailsModel employeeDetailsModel = new EmployeeDetailsModel();
+            employeeDetailsModel = new EmployeeDetailsModel();
             DataTable dataTableDetails = new DataTable();
             string connectionString = ConfigurationManager.ConnectionStrings["userTableConStr"].ConnectionString;
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
@@ -100,9 +139,10 @@ namespace LoginSample.Db_Access
                 sqlDataAdapter.Fill(dataTableDetails);
             }
 
+            // User found in database
             if (dataTableDetails.Rows.Count == 1)
             {
-                //employeeDetailsModel.UserId = Convert.ToInt32(dataTableDetails.Rows[0][0].ToString());
+                employeeDetailsModel.UserId = id/*Convert.ToInt32(dataTableDetails.Rows[0][0].ToString())*/;
                 employeeDetailsModel.Name = dataTableDetails.Rows[0][1].ToString();
                 employeeDetailsModel.Designation = dataTableDetails.Rows[0][2].ToString();
                 employeeDetailsModel.DateOfBirth = DateTime.Parse(dataTableDetails.Rows[0][3].ToString());
@@ -114,11 +154,12 @@ namespace LoginSample.Db_Access
                 employeeDetailsModel.Languages = (dataTableDetails.Rows[0][8] == DBNull.Value) ? null : dataTableDetails.Rows[0][8].ToString();
                 employeeDetailsModel.Database = (dataTableDetails.Rows[0][9] == DBNull.Value) ? null : dataTableDetails.Rows[0][9].ToString();
                 employeeDetailsModel.Photo = (dataTableDetails.Rows[0][10] == DBNull.Value) ? null : (byte[])dataTableDetails.Rows[0][10];
-                return employeeDetailsModel;
+                return true;
             }
             else
             {
-                return null;
+                employeeDetailsModel.UserId = id;
+                return false;
             }
         }
 
