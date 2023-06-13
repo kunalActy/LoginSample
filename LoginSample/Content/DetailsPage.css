@@ -1,4 +1,4 @@
-﻿body { 
+﻿body {
     --blue: #5e72e4;
     --indigo: #5603ad;
     --purple: #8965e0;
@@ -33,7 +33,6 @@
     --breakpoint-xl: 1200px;
     --font-family-sans-serif: Open Sans, sans-serif !important;
     --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
-    
 }
 
 *,
@@ -146,7 +145,6 @@ a {
     text-decoration: none;
     color: #5e72e4;
     background-color: transparent;
-    
     -webkit-text-decoration-skip: objects;
 }
 
@@ -536,7 +534,7 @@ a > code {
 /*Provides color when entering text*/
 .form-control:focus {
     color: #909;
-    border-color: #909/*rgba(50, 151, 211, .25)*/;
+    border-color: #909 /*rgba(50, 151, 211, .25)*/;
     outline: 0;
     background-color: #fff;
     box-shadow: none, none;
@@ -1121,7 +1119,7 @@ button.bg-default:focus {
 }
 
 .bg-white {
-    background-color: var(--bs-card-cap-color)!important;
+    background-color: var(--bs-card-cap-color) !important;
 }
 
 a.bg-white:hover,
@@ -1440,7 +1438,7 @@ main {
     }
 }
 
-.opacity{
+.opacity {
     opacity: .1 !important;
 }
 
@@ -2031,7 +2029,7 @@ p {
 }
 
 .heartImg {
-     width: 5% !important;
+    width: 5% !important;
 }
 
 /*Drop down css*/
@@ -2061,7 +2059,6 @@ p {
     min-width: 160px;
     overflow: auto;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-
     /*font-size: 1rem;
     line-height: 1.5;
     display: block;

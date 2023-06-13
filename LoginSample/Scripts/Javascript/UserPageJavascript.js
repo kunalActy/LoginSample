@@ -13,7 +13,7 @@ var changedAgeValue;
 var uPhoto = '';
 var isPhotoValid = true;
 //$(document).ready(function () {
-
+    
 //});
 
 // Displays warning.
@@ -122,7 +122,7 @@ function AddUserDetails(e) {
         return;
     }
     var modelObj = {
-        Name: uName,
+        Name : uName,
         Designation: uDesignation,
         DateOfBirth: new Date(uDateOfBirth),
         Sex: uSex,
@@ -141,8 +141,7 @@ function SubmitData(modelObj) {
         type: "POST",
         data: JSON.stringify({
             "employeeDetailsModel": modelObj,
-            "userPhoto": uPhoto
-        }),
+            "userPhoto": uPhoto }),
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             data = JSON.parse(data)
@@ -248,7 +247,7 @@ function IsValidName(uName) {
         requiredName.textContent = "Abnormal number of characters.";
         return false;
     }
-
+    
     return true;
 }
 
@@ -303,7 +302,7 @@ function isValidDate(enteredDate, isJoiningDate, uDateOfBirth) {
 
     // Check if the input string matches the expected format
     var regex = /^\d{4}-\d{2}-\d{2}$/;
-
+    
     if (!regex.test(enteredDate)) {
         errorMessage = "Invalid date format.";
         (isJoiningDate == false) ? requiredDOB.textContent = errorMessage : errorJoiningDate.textContent = errorMessage;
@@ -322,7 +321,8 @@ function isValidDate(enteredDate, isJoiningDate, uDateOfBirth) {
         date.getFullYear() !== year ||
         date.getMonth() + 1 !== month ||
         date.getDate() !== day
-    ) {
+    )
+    {
         errorMessage = "Invalid date format.";
         (isJoiningDate == false) ? requiredDOB.textContent = errorMessage : errorJoiningDate.textContent = errorMessage;
         return false;
@@ -395,7 +395,7 @@ function UpdateAgeDynamically() {
     changedAgeValue = $("#DateOfBirth").val();
     if (!(changedAgeValue === initialAgeValue || changedAgeValue == "")) {
         var age = calculateAge(changedAgeValue);
-        document.getElementById('Meriumar').innerHTML = (18 > age || age > 60) ? "Age : N/A" : "Age : " + age;
+        document.getElementById('Meriumar').innerHTML = (18 > age || age > 60) ? "Age : N/A" :  "Age : "+age;
         initialAgeValue = changedAgeValue;
     }
 }
