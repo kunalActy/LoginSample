@@ -328,6 +328,14 @@ function isValidDate(enteredDate, isJoiningDate, uDateOfBirth) {
         return false;
     }
 
+    // Checks for future date.
+    var currentDate = new Date(); // Get the current date
+    if (date >= currentDate) {
+        errorMessage = "Date must not be in the future.";
+        (isJoiningDate == false) ? requiredDOB.textContent = errorMessage : errorJoiningDate.textContent = errorMessage;
+        return false;
+    }
+
     if (isJoiningDate == false) {
         var age = calculateAge(enteredDate);
         meriUmar = age;
